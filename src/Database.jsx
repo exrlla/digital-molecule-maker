@@ -6,7 +6,7 @@ import { Chart } from "react-google-charts";
 
 const Database = (p) => {
     const props = [{
-        "filename": "cat.jpg",
+        "filename": "src/assets/cat.jpg",
         "name": "c12h6",
         "color": "green",
         "weight": 1.02,
@@ -16,7 +16,7 @@ const Database = (p) => {
         "rank": "2"
     },
     {
-        "filename": "cat.jpg",
+        "filename": "src/assets/cat.jpg",
         "name": "c12h6",
         "color": "green",
         "weight": 1.02,
@@ -26,7 +26,7 @@ const Database = (p) => {
         "rank": "2"
     },
     {
-        "filename": "cat.jpg",
+        "filename": "src/assets/cat.jpg",
         "name": "c12h6",
         "color": "green",
         "weight": 1.02,
@@ -41,15 +41,11 @@ const Database = (p) => {
           "Property",
           "Scale",
         ],
+        ["Weight", (props[0].weight + props[1].weight + props[2].weight) / 3.0],
+        ["Light Absorption", (props[0].light_absorption + props[1].light_absorption + props[2].light_absorption) / 3.0],
+        ["Lifespan", (props[0].lifespan + props[1].lifespan + props[2].lifespan) / 3.0],
+        ["Band Gap", (props[0].bandgap + props[1].bandgap + props[2].bandgap) / 3.0]
     ];
-    const newWeight = (props[0].weight + props[1].weight + props[2].weight) / 3.0;
-    const newLightAbsorption = (props[0].light_absorption + props[1].light_absorption + props[2].light_absorption) / 3.0;
-    const newLifespan = (props[0].lifespan + props[1].lifespan + props[2].lifespan) / 3.0;
-    const newBandGap = (props[0].bandgap + props[1].bandgap + props[2].bandgap) / 3.0;
-    data.push(["Weight", newWeight]);
-    data.push(["Light Absorption", newLightAbsorption]);
-    data.push(["Lifespan", newLifespan]);
-    data.push(["Band Gap", newBandGap]);
 
     const options = {
         title: "Molecule Properties",
@@ -61,9 +57,9 @@ const Database = (p) => {
 
     return (
         <>
-            <img src={props[0].filename} alt="logo" />
-            <img src="./cat.jpg" alt="logo" />
-            <img src="./cat.jpg" alt="logo" />
+            <img src={props[0].filename} alt="logo" width={250} />
+            <img src={props[1].filename} alt="logo" width={250}/>
+            <img src={props[2].filename} alt="logo" width={250} />
 
             <Chart
                 chartType="BarChart"
