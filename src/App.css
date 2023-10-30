@@ -11,6 +11,10 @@ body {
 
 .top_right {
   position: absolute;
-  top: -10px;
+  top: -15px;
   right: 15px;
+}
+
+.form_size {
+  width: 100px;
 }

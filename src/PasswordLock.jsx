@@ -1,48 +1,42 @@
 import './App.css'
-<<<<<<< HEAD
 import avatar from "./assets/INFO418_login_avatar.png"
 import icons from "./assets/INFO418_login_icons.png"
-=======
+
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Navigate } from 'react-router-dom';
->>>>>>> bced9f646ee20058ced96dce1197410d37d216db
 
 const PasswordLock = () => {
   const [password, setPassword] = useState("");
-  
+
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    if (password === "75341861") {
+    if (password === "7534186168") {
       // go to maker page
+      window.location.replace("https://www.google.com/");
     } else {
       alert("Wrong password!");
     }
-    e.preventDefault();
   }
   
   return (
     <>
-<<<<<<< HEAD
       <div className='top_right'>
-        <img src={icons} alt="Icons" width={50}/>
+        <img src={icons} alt="Icons" width={60}/>
       </div>
       <div className='center'> 
-        <img src={avatar} alt="Avatar" width={70}/>
+        <img src={avatar} alt="Avatar" width={120}/>
       </div>
-=======
-      <h1>Enter Password</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='center'>
         <label>
-          Password:{" "}
-          <input type="text" value={password} onChange={handleChange} />
+          <input type="text" value={password} onChange={handleChange}>
+          </input>
+          <button type="submit">Submit</button>
         </label>
-        <input type="submit" value="Submit"></input>
       </form>
->>>>>>> bced9f646ee20058ced96dce1197410d37d216db
     </>
   )
 }
