@@ -11,8 +11,8 @@ const PasswordLock = () => {
   };
 
   const handleSubmit = (e) => {
-    if (password === "75341861") {
-      // go to maker page
+    if (password === "7534186168") {
+      Navigate("database")
     } else {
       alert("Wrong password!");
     }

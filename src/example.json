@@ -2,9 +2,9 @@
     "filename": "file.png",
     "name": "c12h6",
     "color": "green",
-    "weight": "102",
-    "light_absorption": "8",
-    "lifespan": "7",
-    "bandgap": "3",
-    "rank": "2"
+    "weight": 1.02,
+    "light_absorption": 8,
+    "lifespan": 7,
+    "bandgap": 3,
+    "rank": 2
 }
