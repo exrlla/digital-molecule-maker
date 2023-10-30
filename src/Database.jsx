@@ -1,4 +1,3 @@
-import './App.css'
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Navigate } from 'react-router-dom';
@@ -34,6 +33,9 @@ const Database = (p) => {
         "lifespan": 7.5,
         "bandgap": 3.1,
         "rank": "2"
+    },
+    {
+        "filename": "src/assets/react.svg"
     }]
 
     const data = [
@@ -57,17 +59,21 @@ const Database = (p) => {
 
     return (
         <>
-            <img src={props[0].filename} alt="logo" width={250} />
-            <img src={props[1].filename} alt="logo" width={250}/>
-            <img src={props[2].filename} alt="logo" width={250} />
+            <img src={props[0].filename} alt="logo" width={150} height={150} />
+            <img src={props[1].filename} alt="logo" width={150} height={150} />
+            <img src={props[2].filename} alt="logo" width={150} height={150} />
 
             <Chart
                 chartType="BarChart"
                 width="100%"
-                height="400px"
+                height="500px"
                 data={data}
                 options={options}
             />
+            <h2>
+                Suggested Molecules
+            </h2>
+            <img src={props[3].filename} alt="logo"></img>
         </>
     )
 }
