@@ -62,22 +62,31 @@ const Database = (p) => {
 
     return (
         <>
-            <img src={props[0].filename} alt="trimer 1" width={200} height={150} />
-            <img src={props[1].filename} alt="trimer 2" width={175} height={150} />
-            <img src={props[2].filename} alt="trimer 3" width={175} height={150} />
+            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                <span style={{width: 50 + "%"}}>
+                    <img src={props[0].filename} alt="trimer 1" width={200} height={150} />
+                    <img src={props[1].filename} alt="trimer 2" width={175} height={150} />
+                    <img src={props[2].filename} alt="trimer 3" width={175} height={150} />
 
-            <Chart
-                chartType="BarChart"
-                width="100%"
-                height="500px"
-                data={data}
-                options={options}
-            />
-            <h2>
-                Suggested Molecules
-            </h2>
-            <img src={props[3].filename} alt="suggested moelcule 1"></img>
-            <img src={props[4].filename} alt="suggested molecule 2"></img>
+                    <Chart
+                        chartType="BarChart"
+                        width="100%"
+                        height="500px"
+                        data={data}
+                        options={options}
+                        style={{marginTop: 3 + 'em'}}
+                    />
+                </span>
+
+                <span style={{width: 50 + "%"}}>
+                    <h2>
+                        Suggested Molecules:
+                    </h2>
+                    <img src={props[3].filename} width={550} height={150} style={{marginTop: 3 + "em"}} alt="suggested molecule 1"></img>
+                    <img src={props[4].filename} width={550} height={150} style={{marginTop: 3 + "em"}} alt="suggested molecule 2"></img>
+                </span>
+            </div>
+
         </>
     )
 }
