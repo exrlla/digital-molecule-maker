@@ -7,16 +7,20 @@ import { Navigate } from 'react-router-dom';
 
 const PasswordLock = () => {
   const [password, setPassword] = useState("");
+  // console.log("password lock called");
 
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
+    console.log("handling submit");
+    e.preventDefault()
     if (password === "7534186168") {
       // go to maker page
-      window.location.replace("https://www.google.com/");
-      Navigate("database")
+      // window.location.replace("https://www.google.com/");
+      window.location.href = "https://www.google.com/";
+      Navigate("database");
     } else {
       alert("Wrong password!");
     }
@@ -30,9 +34,9 @@ const PasswordLock = () => {
         <div className='center'> 
           <img src={avatar} alt="Avatar" width={120}/>
         </div>
-        <form onSubmit={handleSubmit} className='center'>
+        <form name='submit box' onSubmit={handleSubmit} className='center'>
           <label>
-            <input type="text" value={password} onChange={handleChange}>
+            <input name='password box' type="text" value={password} onChange={handleChange}>
             </input>
             <button type="submit">Submit</button>
           </label>
