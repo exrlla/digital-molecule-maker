@@ -1,6 +1,27 @@
-:root {
+/* :root {
   background-color: whitesmoke;
   color: black;
+} */
+
+body {
+  background-image: url("/src/assets/INFO418_login_background.webp");
+}
+
+.center {
+  display: flex;
+  width: 100vw; 
+  align-items: center;
+  justify-content: center;
+}
+
+.top_right {
+  position: absolute;
+  top: -15px;
+  right: 15px;
+}
+
+.form_size {
+  width: 100px;
 }
 
 .maker-container {
@@ -29,28 +50,4 @@
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
-}
-
-/* .main-content {
-
-} */
-body {
-  /* background-image: url("/src/assets/INFO418_login_background.webp"); */
-}
-
-.center {
-  display: flex;
-  width: 100vw; 
-  align-items: center;
-  justify-content: center;
-}
-
-.top_right {
-  position: absolute;
-  top: -15px;
-  right: 15px;
-}
-
-.form_size {
-  width: 100px;
 }
