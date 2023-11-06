@@ -25,7 +25,7 @@ const MainContent = ({ selectedImages }) => {
 };
 
 MainContent.propTypes = {
-    selectedImages: PropTypes.string,
+  selectedImages: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default MainContent;

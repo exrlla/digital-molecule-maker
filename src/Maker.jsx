@@ -4,8 +4,7 @@ import Sidebar from './Sidebar'
 import MainContent from './MainContent'
 import { useState } from 'react'
 
-
-const Maker = () => {
+const Maker = ({socket}) => {
     const [selectedImages, setSelectedImages] = useState([]);
   const images = [
     'src/assets/C4H3N2.png',
@@ -22,13 +21,16 @@ const Maker = () => {
 
   const handleImageSelect = (index) => {
     const selectedImage = images[index];
-
+  
     // Check if the image is already selected and toggle its selection
     if (selectedImages.includes(selectedImage)) {
       setSelectedImages(selectedImages.filter((img) => img !== selectedImage));
     } else {
       setSelectedImages([...selectedImages, selectedImage]);
     }
+  
+    // Emit the updated selectedImages array
+    socket.emit('imagesSelected', selectedImages);
   };
 
   return (

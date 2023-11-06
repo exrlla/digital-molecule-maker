@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Navigate } from 'react-router-dom';
 import { Chart } from "react-google-charts";
+// import io from 'socket.io-client';
 
-const Database = (p) => {
+const Database = ({socket}) => {
+    const [selectedImages, setSelectedImages] = useState([]);
+  
+    useEffect(() => {
+      socket.on('updateImages', (updatedImages) => {
+         console.log("SOCKET DATABSE:", updatedImages)
+        setSelectedImages(updatedImages);
+      }, [selectedImages]); // Listen for changes in selectedImages
+  
+      return () => {
+        // Cleanup function (e.g., removing event listeners)
+        socket.off('updateImages');
+      };
+    }, [socket]); // Empty dependency array means this effect runs once when the component mounts
+
     const getSuggestedMolecule = ([filename1, filename2, filename3]) => {
         const molecule1 = allMolecules[filename1];
         const molecule2 = allMolecules[filename2];
@@ -175,75 +190,114 @@ const Database = (p) => {
             "rank": 4
         }
     }
-    const props = ["src/assets/C12H8N.png", "src/assets/C6H4.png", "src/assets/C4H3N2.png"]
-    const molecules = [allMolecules[props[0]], allMolecules[props[1]], allMolecules[props[2]]]
 
-    const data = [
-        [
-          "Property",
-          "Scale",
-        ],
-        ["Weight", (molecules[0].weight + molecules[1].weight + molecules[2].weight) / 3.0],
-        ["Light Absorption", (molecules[0].light_absorption + molecules[1].light_absorption + molecules[2].light_absorption) / 3.0],
-        ["Lifespan", (molecules[0].lifespan + molecules[1].lifespan + molecules[2].lifespan) / 3.0],
-        ["Band Gap", (molecules[0].bandgap + molecules[1].bandgap + molecules[2].bandgap) / 3.0]
-    ];
+    if (selectedImages.length == 3) {
+        const molecules = [allMolecules[selectedImages[0]], allMolecules[selectedImages[1]], allMolecules[selectedImages[2]]]
 
-    const options = {
-        title: "Molecule Properties & Statistics",
-        width: 600,
-        height: 400,
-        bar: { groupWidth: "95%" },
-        legend: { position: "none" },
-        hAxis: {
-            minValue: 10,
-          },
-    };
+        const data = [
+            [
+            "Property",
+            "Scale",
+            ],
+            ["Weight", (molecules[0].weight + molecules[1].weight + molecules[2].weight) / 3.0],
+            ["Light Absorption", (molecules[0].light_absorption + molecules[1].light_absorption + molecules[2].light_absorption) / 3.0],
+            ["Lifespan", (molecules[0].lifespan + molecules[1].lifespan + molecules[2].lifespan) / 3.0],
+            ["Band Gap", (molecules[0].bandgap + molecules[1].bandgap + molecules[2].bandgap) / 3.0]
+        ];
 
-    const suggested = getSuggestedMolecule(props);
-    console.log(suggested);
+        const options = {
+            title: "Molecule Properties & Statistics",
+            width: 600,
+            height: 400,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" },
+            hAxis: {
+                minValue: 10,
+              },
+        };
+    
+        const suggested = getSuggestedMolecule(selectedImages);
+        console.log(suggested);
+    
+        return (
+            <>
+                <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                    <span style={{width: 50 + "%"}}>
+                        <img src={selectedImages[0]} title={selectedImages[0].substring(11, selectedImages[0].length - 4)} alt="trimer 1" width={200} height={150} />
+                        <img src={selectedImages[1]} title={selectedImages[0].substring(11, selectedImages[1].length - 4)} alt="trimer 2" width={175} height={150} />
+                        <img src={selectedImages[2]} title={selectedImages[0].substring(11, selectedImages[2].length - 4)} alt="trimer 3" width={175} height={150} />
+    
+                        <Chart
+                            chartType="BarChart"
+                            width="100%"
+                            height="500px"
+                            data={data}
+                            options={options}
+                            style={{marginTop: 3 + 'em'}}
+                        />
+                    </span>
+    
+                    <span style={{width: 50 + "%"}}>
+                        <h2>
+                            Suggested Molecules:
+                        </h2>
+                        <span>
+                            <img src={suggested[0][0]} title={suggested[0][0].substring(11, suggested[0][0].length - 4)} width={200} height={150} alt="suggested molecule 1"></img>
+                            <img src={suggested[0][1]} title={suggested[0][1].substring(11, suggested[0][1].length - 4)} width={175} height={150} alt="suggested molecule 2"></img>
+                            <img src={suggested[0][2]} title={suggested[0][2].substring(11, suggested[0][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
+                        </span>
+                        <br />
+                        <span>
+                            <img src={suggested[1][0]} title={suggested[1][0].substring(11, suggested[1][0].length - 4)} width={200} height={150} alt="suggested molecule 1"></img>
+                            <img src={suggested[1][1]} title={suggested[1][1].substring(11, suggested[1][1].length - 4)} width={175} height={150} alt="suggested molecule 2"></img>
+                            <img src={suggested[1][2]} title={suggested[1][2].substring(11, suggested[1][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
+                        </span>
+                        <br />
+                        Hover over a molecule component to see its name.
+                    </span>
+                </div>
+            </>
+        )
+    }
 
     return (
         <>
-            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
-                <span style={{width: 50 + "%"}}>
-                    <img src={props[0]} title={props[0].substring(11, props[0].length - 4)} alt="trimer 1" width={200} height={150} />
-                    <img src={props[1]} title={props[0].substring(11, props[1].length - 4)} alt="trimer 2" width={175} height={150} />
-                    <img src={props[2]} title={props[0].substring(11, props[2].length - 4)} alt="trimer 3" width={175} height={150} />
-
-                    <Chart
-                        chartType="BarChart"
-                        width="100%"
-                        height="500px"
-                        data={data}
-                        options={options}
-                        style={{marginTop: 3 + 'em'}}
-                    />
-                </span>
-
-                <span style={{width: 50 + "%"}}>
-                    <h2>
-                        Suggested Molecules:
-                    </h2>
-                    <span>
-                        <img src={suggested[0][0]} title={suggested[0][0].substring(11, suggested[0][0].length - 4)} width={200} height={150} alt="suggested molecule 1"></img>
-                        <img src={suggested[0][1]} title={suggested[0][1].substring(11, suggested[0][1].length - 4)} width={175} height={150} alt="suggested molecule 2"></img>
-                        <img src={suggested[0][2]} title={suggested[0][2].substring(11, suggested[0][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
-                    </span>
-                    <br />
-                    <span>
-                        <img src={suggested[1][0]} title={suggested[1][0].substring(11, suggested[1][0].length - 4)} width={200} height={150} alt="suggested molecule 1"></img>
-                        <img src={suggested[1][1]} title={suggested[1][1].substring(11, suggested[1][1].length - 4)} width={175} height={150} alt="suggested molecule 2"></img>
-                        <img src={suggested[1][2]} title={suggested[1][2].substring(11, suggested[1][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
-                    </span>
-                    <br />
-                    Hover over a molecule component to see its name.
-                </span>
+        <div>
+            <h1>/database Page</h1>
+            <div>
+                <h2>Selected Images:</h2>
+                <p>Molecule is not valid</p>
             </div>
-
+        </div>
         </>
     )
 }
 
-export default Database;
+function GetSuggestedMolecule(filename1, filename2, filename3) {
+    const incorrect_choices = [];
 
+    if (filename1.rank !== 4) {
+        incorrect_choices.push(filename1);
+    }
+    if (filename2.rank !== 4) {
+        incorrect_choices.push(filename2);
+    }
+    if (filename3.rank !== 4) {
+        incorrect_choices.push(filename3);
+    }
+    min_val = 0;
+    max_val = len(incorrect_choices) - 1;
+    rand = Math.floor(Math.random() * (max_val - min_val + 1)) + min_val;
+
+    rand_index = Math.floor(Math.random() * (3)); // random index from 0 to 2 
+    if (incorrect_choices[rand] == filename1) {
+        return [filename1, 4, rand_index]
+    } else if (incorrect_choices[rand] == filename2) {
+        return [filename2, 4, rand_index]
+    } else {
+        return [filename3, 4, rand_index]
+    }
+        
+}
+  
+export default Database;
