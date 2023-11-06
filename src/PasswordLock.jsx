@@ -20,6 +20,7 @@ const PasswordLock = () => {
       Navigate("database");
     } else {
       alert("Wrong password!");
+      e.preventDefault();
     }
   }
   
