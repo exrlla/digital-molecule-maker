@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { Chart } from "react-google-charts";
 import allMolecules from './molecule_database';
 
-const Database = (p) => {
+const Database = ({ p }) => {
     const getSuggestedMolecule = ([filename1, filename2, filename3]) => {
         const molecule1 = allMolecules[filename1];
         const molecule2 = allMolecules[filename2];
@@ -66,7 +66,7 @@ const Database = (p) => {
         }
     }
 
-    const props = ["src/assets/C12H8N.png", "src/assets/C6H4.png", "src/assets/C4H3N2.png"]
+    const props = ["src/assets/C12H10N.png", "src/assets/C6H3F.png", "src/assets/C6H4NO2.png"]
     const molecules = [allMolecules[props[0]], allMolecules[props[1]], allMolecules[props[2]]]
 
     const data = [
@@ -127,7 +127,9 @@ const Database = (p) => {
                         <img src={suggested[1][2]} title={suggested[1][2].substring(11, suggested[1][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
                     </span>
                     <br />
-                    Hover over a molecule component to see its name.
+                    <h3>
+                        Hover over a molecule component to see its name.
+                    </h3>
                 </span>
             </div>
 

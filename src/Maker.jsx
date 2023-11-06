@@ -4,6 +4,7 @@ import Sidebar from './Sidebar'
 import MainContent from './MainContent'
 import { useState } from 'react'
 import allMolecules from './molecule_database'
+import Database from './Database'
 
 
 const Maker = () => {
