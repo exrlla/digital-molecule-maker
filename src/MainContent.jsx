@@ -15,7 +15,7 @@ const MainContent = ({ selectedImages }) => {
     }}>
       {selectedImages.length <= 3 ? (
         selectedImages.map((image, index) => (
-          <img width={200} height={190}key={index} src={image} alt={`Selected Image ${index}`} />
+          <img title={image.substring(11, image.length - 4)} width={200} height={190}key={index} src={image} alt={`Selected Image ${index}`} />
         ))
       ) : (
         ''

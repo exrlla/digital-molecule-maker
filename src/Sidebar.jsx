@@ -16,6 +16,7 @@ const Sidebar = ({ images, handleImageSelect, selectedImages }) => {
               alt={`Image ${index}`}
               onClick={() => handleImageSelect(index)}
               className={selectedImages.includes(image) ? 'selected' : ''}
+              title={image.substring(11, image.length - 4)}
             />
           ))}
         </div>
