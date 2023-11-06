@@ -91,4 +91,31 @@ const Database = (p) => {
     )
 }
 
+function GetSuggestedMolecule(filename1, filename2, filename3) {
+    const incorrect_choices = [];
+
+    if (filename1.rank !== 4) {
+        incorrect_choices.push(filename1);
+    }
+    if (filename2.rank !== 4) {
+        incorrect_choices.push(filename2);
+    }
+    if (filename3.rank !== 4) {
+        incorrect_choices.push(filename3);
+    }
+    min_val = 0;
+    max_val = len(incorrect_choices) - 1;
+    rand = Math.floor(Math.random() * (max_val - min_val + 1)) + min_val;
+
+    rand_index = Math.floor(Math.random() * (3)); // random index from 0 to 2 
+    if (incorrect_choices[rand] == filename1) {
+        return [filename1, 4, rand_index]
+    } else if (incorrect_choices[rand] == filename2) {
+        return [filename2, 4, rand_index]
+    } else {
+        return [filename3, 4, rand_index]
+    }
+     
+}
+
 export default Database;
