@@ -9,5 +9,5 @@ Currently, two official plugins are available:
 
 How to run:
 npm install
-
+node server.cjs
 npm run dev
