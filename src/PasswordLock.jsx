@@ -7,7 +7,6 @@ import { Navigate } from 'react-router-dom';
 
 const PasswordLock = () => {
   const [password, setPassword] = useState("");
-  // console.log("password lock called");
 
   const handleChange = (e) => {
     setPassword(e.target.value);
@@ -17,9 +16,7 @@ const PasswordLock = () => {
     console.log("handling submit");
     e.preventDefault()
     if (password === "7534186168") {
-      // go to maker page
-      // window.location.replace("https://www.google.com/");
-      window.location.href = "https://www.google.com/";
+      window.location.href = "/maker";
       Navigate("database");
     } else {
       alert("Wrong password!");
