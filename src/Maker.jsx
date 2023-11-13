@@ -30,7 +30,6 @@ const Maker = ({socket}) => {
 
   //Handles adding molecules selected from the sidebar to the currently built molecule.
   const handleImageSelect = (index) => { 
-    console.log(index) 
     var selectedImage = images[index];
     const molecule = allMolecules[selectedImage];
     if (molecule.color == "purple") { //if the selected molecule is purple, replace the purple molecule
