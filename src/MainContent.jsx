@@ -17,7 +17,6 @@ const MainContent = ({ selectedMolecules }) => {
     }}>
       {selectedMolecules.length <= 3 ? (
         selectedMolecules.map((moleculeKey, index) => (
-          console.log("PENIS", moleculeKey, allMolecules[moleculeKey]),
           displayMolecule(moleculeKey, index)
         ))
       ) : (

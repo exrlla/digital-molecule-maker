@@ -11,9 +11,9 @@ const io = require('socket.io')(server, {cors: {origin: "*"}});
 app.use(cors());
 
 io.on('connection', (socket) => {
-  socket.on('imagesSelected', (selectedImages) => {
-    console.log("imagesSelected, emitting....")
-    io.emit('updateImages', selectedImages);
+  socket.on('moleculesSelected', (selectedMolecules) => {
+    console.log("moleculesSelected, emitting....")
+    io.emit('updateMolecules', selectedMolecules);
   });
 });
 

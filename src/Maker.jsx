@@ -18,18 +18,19 @@ const Maker = ({socket}) => {
   const handleImageSelect = (moleculeKey) => {  
     const molecule = allMolecules[moleculeKey];
     const selectedMoleculeName = moleculeKey;
+    console.log("Emitting soon");
     if (molecule.color == "purple") {
       const newSelection = [selectedMoleculeName, selectedMolecules[1], selectedMolecules[2]];
       setSelectedMolecules(newSelection);
-      socket.emit('imagesSelected', newSelection);
+      socket.emit('moleculesSelected', newSelection);
     } else if (molecule.color == "green") {
       const newSelection = [selectedMolecules[0], selectedMoleculeName, selectedMolecules[2]];
       setSelectedMolecules(newSelection)
-      socket.emit('imagesSelected', newSelection);
+      socket.emit('moleculesSelected', newSelection);
     } else if (molecule.color == "blue") {
       const newSelection = [selectedMolecules[0], selectedMolecules[1], selectedMoleculeName];
       setSelectedMolecules(newSelection)
-      socket.emit('imagesSelected', newSelection);
+      socket.emit('moleculesSelected', newSelection);
     }
   }
 

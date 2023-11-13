@@ -8,7 +8,8 @@ const MoleculeDatabase = {
         "light_absorption": 3.6,
         "lifespan": 1.8,
         "bandgap": 4.5,
-        "rank": 1
+        "rank": 0,
+        "isCorrectChoice": true,
     },
     "C14H14N": {
         "name": "c14h14n",
@@ -18,7 +19,8 @@ const MoleculeDatabase = {
         "light_absorption": 3.7,
         "lifespan": 3.7,
         "bandgap": 5.7,
-        "rank": 2
+        "rank": 1,
+        "isCorrectChoice": true,
     },
     "C20H12N": {
         "name": "c20h12n",
@@ -27,8 +29,8 @@ const MoleculeDatabase = {
         "weight": 3.5,
         "light_absorption": 3.8,
         "lifespan": 4.3,
-        "bandgap": 7.5,
-        "rank": 3
+        "rank": 1,
+        "isCorrectChoice": false,
     },
     "C12H8N": {
         "name": "c12h8n",
@@ -38,8 +40,10 @@ const MoleculeDatabase = {
         "light_absorption": 3.9,
         "lifespan": 6.8,
         "bandgap": 8.7,
-        "rank": 4
+        "rank": 2,
+        "isCorrectChoice": true,
     },
+    //TODO: ANOTHER ONE
     // GREEN
     "C6H3F": {
         "name": "c6h3f",
@@ -49,7 +53,8 @@ const MoleculeDatabase = {
         "light_absorption": 5.8,
         "lifespan": 3.4,
         "bandgap": 3.6,
-        "rank": 1
+        "rank": 0,
+        "isCorrectChoice": true,
     },
     "C10H6": {
         "name": "c10h6",
@@ -59,7 +64,8 @@ const MoleculeDatabase = {
         "light_absorption": 6.7,
         "lifespan": 3.7,
         "bandgap": 6.4,
-        "rank": 2
+        "rank": 1,
+        "isCorrectChoice": true,
     },
     "C8H6": {
         "name": "c8h6",
@@ -69,7 +75,8 @@ const MoleculeDatabase = {
         "light_absorption": 6.9,
         "lifespan": 6.7,
         "bandgap": 6.5,
-        "rank": 3
+        "rank": 1,
+        "isCorrectChoice": false,
     },
     "C6H4": {
         "name": "c6h4",
@@ -79,8 +86,10 @@ const MoleculeDatabase = {
         "light_absorption": 7.8,
         "lifespan": 8.9,
         "bandgap": 7.9,
-        "rank": 4
+        "rank": 2,
+        "isCorrectChoice": true,
     },
+    // TODO Another one
     // BLUE
     "C6H4NO2": {
         "name": "c6h4no2",
@@ -90,7 +99,8 @@ const MoleculeDatabase = {
         "light_absorption": 3.4,
         "lifespan": 5.6,
         "bandgap": 4.5,
-        "rank": 1
+        "rank": 0,
+        "isCorrectChoice": true,
     }, 
     "C4H3S": {
         "name": "c4h3s",
@@ -100,7 +110,8 @@ const MoleculeDatabase = {
         "light_absorption": 5.4,
         "lifespan": 7.8,
         "bandgap": 5.6,
-        "rank": 2
+        "rank": 1,
+        "isCorrectChoice": true,
     },
     "C7H4N": {
         "name": "c7h4n",
@@ -110,7 +121,8 @@ const MoleculeDatabase = {
         "light_absorption": 6.7,
         "lifespan": 7.9,
         "bandgap": 6.8,
-        "rank": 3
+        "rank": 1,
+        "isCorrectChoice": false,
     },
     "C4H3N2": {
         "name": "c4h3n2",
@@ -120,8 +132,10 @@ const MoleculeDatabase = {
         "light_absorption": 6.8,
         "lifespan": 9.8,
         "bandgap": 8.1,
-        "rank": 4
+        "rank": 2,
+        "isCorrectChoice": true,
     }
+    // TODO: another one
 };
 
 export default MoleculeDatabase;
