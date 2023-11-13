@@ -20,77 +20,17 @@ const Database = ({socket}) => {
       };
     }, [socket]); // Empty dependency array means this effect runs once when the component mounts
 
-    // const getSuggestedMolecule = ([filename1, filename2, filename3]) => {
-    //     const molecule1 = allMolecules[filename1];
-    //     const molecule2 = allMolecules[filename2];
-    //     const molecule3 = allMolecules[filename3];
-    //     const incorrect_choices = [];
-    
-    //     if (molecule1.rank !== 4) {
-    //         incorrect_choices.push(0);
-    //     }
-    //     if (molecule2.rank !== 4) {
-    //         incorrect_choices.push(1);
-    //     }
-    //     if (molecule3.rank !== 4) {
-    //         incorrect_choices.push(2);
-    //     }
-    //     if (incorrect_choices.length == 0) {
-    //         return [["src/assets/C12H10N.png", "src/assets/C6H3F.png", "src/assets/C6H4NO2.png"],
-    //                 ["src/assets/C12H10N.png", "src/assets/C6H3F.png", "src/assets/C6H4NO2.png"]]
-    //     }
-
-    //     const replace = incorrect_choices[0];
-    //     var idx = -1;
-    //     var idx2 = -1;
-    //     var idx3 = -1;
-
-    //     if (replace === 0) {
-    //         idx = replace * 4 + molecule1.rank - 1;
-    //         if (molecule1.rank == 1) {
-    //             idx2 = idx + 1;
-    //             idx3 = idx + 2;
-    //         } else {
-    //             idx2 = idx + 1;
-    //             idx3 = idx - 1;
-    //         }
-    //         return [[Object.keys(allMolecules)[idx2], filename2, filename3],
-    //                 [Object.keys(allMolecules)[idx3], filename2, filename3]];
-    //     } else if (replace === 1) {
-    //         idx = replace * 4 + molecule2.rank - 1;
-    //         if (molecule2.rank == 1) {
-    //             idx2 = idx + 1;
-    //             idx3 = idx + 2;
-    //         } else {
-    //             idx2 = idx + 1;
-    //             idx3 = idx - 1;
-    //         }
-    //         return [[filename1, Object.keys(allMolecules)[idx2], filename3],
-    //                 [filename1, Object.keys(allMolecules)[idx3], filename3]];
-    //     } else {
-    //         idx = replace * 4 + molecule3.rank - 1;
-    //         if (molecule3.rank == 1) {
-    //             idx2 = idx + 1;
-    //             idx3 = idx + 2;
-    //         } else {
-    //             idx2 = idx + 1;
-    //             idx3 = idx - 1;
-    //         }
-    //         return [[filename1, filename2, Object.keys(allMolecules)[idx2]],
-    //                 [filename1, filename2, Object.keys(allMolecules)[idx3]]];
-    //     }
-    // }
 
     if (selectedMolecules.length == 3 && selectedMolecules[0] != "purple" && selectedMolecules[1] != "green" && selectedMolecules[2] != "blue") {
         // First we get the objects for each block
         const molecules = getMoleculeTrimer(selectedMolecules);
-        
+        console.log("GETTRIMERR", molecules)
         // Gets the data for the overall molecule
         const data = getCompleteMoleculeData(molecules);
-
+        console.log("COMPLETEMOLECULEDATA", molecules)
         // Get the suggeted molecules
         const suggestedMoleculeNames = getSuggestedMoleculeNames(selectedMolecules);
-        console.log(suggestedMoleculeNames);
+        console.log("SUGGESTED", molecules)
         const suggested = suggestedMoleculeNames.map((recommendedMolecule) => {
             return getMoleculeTrimer(recommendedMolecule);
         })
@@ -119,7 +59,7 @@ const getAllRelevantMolecules = (rank, color) => {
 }
 
 const getSuggestedMoleculeNames = (selectedMolecules) => {
-    const finalRank = 3;
+    const finalRank = 2; //TODO
     // This one is the objects for each molecule instead of just the names
     const moleculeTrimer = getMoleculeTrimer(selectedMolecules);
 
@@ -127,19 +67,30 @@ const getSuggestedMoleculeNames = (selectedMolecules) => {
     const molecule2 = moleculeTrimer[1];
     const molecule3 = moleculeTrimer[2];
 
-    // We first figure out which blocks aren't finalized,
-    // that is, which blocks don't have the final molecule in its place
+    // We give a new set of recommendations for a spot if the molecule in that spot
+    // is not the correct choice for the options previously given (not correct choice for moving onto next rank)
+    // or that molecule is the correct choice but it is not the final rank, so we give the recommendations for the next rank
     const nonFinalSpaces = [];
-    if (molecule1.rank != finalRank ) {
+    if (!molecule1.isCorrectChoice || molecule1.rank != finalRank) {
         nonFinalSpaces.push(0);
     }
 
-    if (molecule2.rank != finalRank ) {
+    if (!molecule2.isCorrectChoice || molecule2.rank != finalRank) {
         nonFinalSpaces.push(1);
     }
 
-    if (molecule3.rank != finalRank ) {
+    if (!molecule3.isCorrectChoice || molecule3.rank != finalRank) {
         nonFinalSpaces.push(2);
+    }
+
+    // If all were correctly chosen then let's check if 
+    if (nonFinalSpaces.length == 0) {
+        if (molecule1.rank == finalRank && molecule2.rank == finalRank && molecule3.rank == finalRank) {
+            alert("You WON!");
+        } else {
+            console.log("MESSED UPPP:", [molecule1, molecule2, molecule3])
+            alert("Somehow messed up");
+        }
     }
 
     // Pick a random spot to improve on for the sake of the puzzle having variety every time you play it:
@@ -153,7 +104,7 @@ const getSuggestedMoleculeNames = (selectedMolecules) => {
         const choices = getAllRelevantMolecules(toImproveMolecule.rank + 1, toImproveMolecule.color);
         const recommendations = []
         choices.forEach((choice) => {
-            const newTrimer = selectedMolecules;
+            const newTrimer = [...selectedMolecules];
             newTrimer[toImproveSpot] = choice;
             recommendations.push(newTrimer);
         })
@@ -164,19 +115,13 @@ const getSuggestedMoleculeNames = (selectedMolecules) => {
         const choices = getAllRelevantMolecules(toImproveMolecule.rank, toImproveMolecule.color);
         const recommendations = []
         choices.forEach((choice) => {
-            const newTrimer = selectedMolecules;
+            const newTrimer = [...selectedMolecules];
             newTrimer[toImproveSpot] = choice;
             recommendations.push(newTrimer);
         })
         console.log("RECOMMENDATIONS", recommendations)
         return recommendations
     }
-
-
-
-    return [["C12H10N", "C6H3F", "C6H4NO2"],
-        ["C12H10N", "C6H3F", "C6H4NO2"]]
-
 }
 // Takes in array of all molecules selected and returns data of averages for fully selected molecule
 const getCompleteMoleculeData = (molecules) => {
@@ -192,7 +137,8 @@ const getCompleteMoleculeData = (molecules) => {
     ];
 }
 
-const displayDatabasePage = (molecules, data, suggested) => {
+const displayDatabasePage = (moleculesChosen, data, suggested) => {
+    console.log("MOLECULES SELECTED:", moleculesChosen)
     // Options for barchart
     const options = {
         title: "Molecule Properties & Statistics",
@@ -209,9 +155,9 @@ const displayDatabasePage = (molecules, data, suggested) => {
         <>
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 <span style={{width: 50 + "%"}}>
-                    <img src={molecules[0].imagePath} title={molecules[0].name} alt="trimer 1" width={200} height={150} />
-                    <img src={molecules[1].imagePath} title={molecules[1].name} alt="trimer 2" width={175} height={150} />
-                    <img src={molecules[2].imagePath} title={molecules[2].name} alt="trimer 3" width={175} height={150} />
+                    <img src={moleculesChosen[0].imagePath} title={moleculesChosen[0].name} alt="trimer 1" width={200} height={150} />
+                    <img src={moleculesChosen[1].imagePath} title={moleculesChosen[1].name} alt="trimer 2" width={175} height={150} />
+                    <img src={moleculesChosen[2].imagePath} title={moleculesChosen[2].name} alt="trimer 3" width={175} height={150} />
 
                     <Chart
                         chartType="BarChart"
