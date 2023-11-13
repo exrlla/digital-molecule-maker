@@ -13,7 +13,7 @@ const Database = ({socket}) => {
     useEffect(() => {
         socket.on('updateImages', (updatedImages) => {
             setLoading(true);
-            setTimeout(() => setLoading(false), 2000);
+            setTimeout(() => setLoading(false), 2000); //add loading screen for 2 seconds
             setSelectedImages(updatedImages);
         }, [selectedImages]); // Listen for changes in selectedImages
   
@@ -24,36 +24,34 @@ const Database = ({socket}) => {
     }, [socket]); // Empty dependency array means this effect runs once when the component mounts
 
     const getSuggestedMolecule = ([filename1, filename2, filename3]) => {
+        // gets the actual molecule information from the molecule list
         const molecule1 = allMolecules[filename1];
         const molecule2 = allMolecules[filename2];
         const molecule3 = allMolecules[filename3];
-        const incorrect_choices = [];
-    
+        var replace = -1;
+        
+        // finds the first molecule that isn't fully optimized
         if (molecule1.rank !== 4) {
-            incorrect_choices.push(0);
+            replace = 0;
+        } else if (molecule2.rank !== 4) {
+            replace = 1;
+        } else if (molecule3.rank !== 4) {
+            replace = 2;
         }
-        if (molecule2.rank !== 4) {
-            incorrect_choices.push(1);
-        }
-        if (molecule3.rank !== 4) {
-            incorrect_choices.push(2);
-        }
-        if (incorrect_choices.length == 0) {
+        if (replace == -1) { //if the molecule is fully optimized, suggested molecules are the first molecule
             return [["src/assets/C12H10N.png", "src/assets/C6H3F.png", "src/assets/C6H4NO2.png"],
                     ["src/assets/C12H10N.png", "src/assets/C6H3F.png", "src/assets/C6H4NO2.png"]]
         }
-
-        const replace = incorrect_choices[0];
         var idx = -1;
         var idx2 = -1;
         var idx3 = -1;
 
         if (replace === 0) {
-            idx = replace * 4 + molecule1.rank - 1;
-            if (molecule1.rank == 1) {
+            idx = replace * 4 + molecule1.rank - 1; //get the index of the molecule in the molecule list
+            if (molecule1.rank == 1) { //edge case: if molecule is rank 1, then get rank 2 and rank 3 of the same color molecule
                 idx2 = idx + 1;
                 idx3 = idx + 2;
-            } else {
+            } else { //if the molecule is not rank 1, get the rank-1 and rank+1 molecule
                 idx2 = idx + 1;
                 idx3 = idx - 1;
             }
@@ -84,16 +82,19 @@ const Database = ({socket}) => {
         }
     }
 
+    //if a valid molecule is passed in
     if (selectedImages.length == 3 && selectedImages[0] != "src/assets/purple.png" && selectedImages[1] != "src/assets/green.png" && selectedImages[2] != "src/assets/blue.png") {
-        if (loading) {
+        if (loading) { //show loading screen while loading
             return (
                 <>
                     <Loading />
                 </>
             )
         } else {
+            //get molecule information from the molecule list
             const molecules = [allMolecules[selectedImages[0]], allMolecules[selectedImages[1]], allMolecules[selectedImages[2]]];
 
+            //calculates the data by computing the average stats of the 3 molecules
             const data = [
                 [
                 "Property",
@@ -105,6 +106,7 @@ const Database = ({socket}) => {
                 ["Band Gap", (molecules[0].bandgap + molecules[1].bandgap + molecules[2].bandgap) / 3.0]
             ];
 
+            //the graph display options
             const options = {
                 title: "Molecule Properties & Statistics",
                 width: 600,

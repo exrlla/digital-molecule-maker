@@ -6,7 +6,7 @@ const MoleculeDisplay = ({image, width, height}) => {
         <>
             <div style={{width: width, height: height, display: 'flex', flexDirection: 'column'}}>
                 <img src={image}/>
-                <p style={{marginTop: "2px", color:'black'}}>{name}</p>
+                <p style={{marginTop: ".1em", color:'black'}}>{name}</p>
             </div>
         </>
     );
