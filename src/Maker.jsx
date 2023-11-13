@@ -6,8 +6,7 @@ import { useState } from 'react'
 import allMolecules from './molecule_database'
 import Database from './Database'
 
-
-const Maker = () => {
+const Maker = ({socket}) => {
   const purple = "src/assets/purple.png";
   const green = "src/assets/green.png";
   const blue = "src/assets/blue.png"
@@ -27,18 +26,18 @@ const Maker = () => {
     'src/assets/C7H4N.png',
   ];
 
-  const handleImageSelect = (index) => {
+  const handleImageSelect = (index) => {  
     var selectedImage = images[index];
     const molecule = allMolecules[selectedImage];
-    if (selectedImages.includes(selectedImage)) {
-      selectedImage = "src/assets/" + molecule.color + ".png";
-    }
     if (molecule.color == "purple") {
       setSelectedImages([selectedImage, selectedImages[1], selectedImages[2]]);
+      socket.emit('imagesSelected', [selectedImage, selectedImages[1], selectedImages[2]]);
     } else if (molecule.color == "green") {
       setSelectedImages([selectedImages[0], selectedImage, selectedImages[2]])
+      socket.emit('imagesSelected', [selectedImages[0], selectedImage, selectedImages[2]]);
     } else if (molecule.color == "blue") {
       setSelectedImages([selectedImages[0], selectedImages[1], selectedImage])
+      socket.emit('imagesSelected', [selectedImages[0], selectedImages[1], selectedImage]);
     }
   }
 

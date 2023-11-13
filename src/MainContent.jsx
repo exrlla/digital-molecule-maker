@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import MoleculeDisplay from './MoleculeDisplay';
 
 const MainContent = ({ selectedImages }) => {
     return (
@@ -15,7 +16,8 @@ const MainContent = ({ selectedImages }) => {
     }}>
       {selectedImages.length <= 3 ? (
         selectedImages.map((image, index) => (
-          <img title={image.substring(11, image.length - 4)} width={200} height={190}key={index} src={image} alt={`Selected Image ${index}`} />
+          <MoleculeDisplay image={image} width={200} height={190} key={index}></MoleculeDisplay>
+          // <img title={image.substring(11, image.length - 4)} width={200} height={190}key={index} src={image} alt={`Selected Image ${index}`} />
         ))
       ) : (
         ''
@@ -25,7 +27,7 @@ const MainContent = ({ selectedImages }) => {
 };
 
 MainContent.propTypes = {
-    selectedImages: PropTypes.string,
+  selectedImages: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default MainContent;

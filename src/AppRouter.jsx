@@ -3,14 +3,14 @@ import PasswordLock from "./PasswordLock";
 import Maker from "./Maker";
 import Database from "./Database";
 
-function AppRouter() {
+function AppRouter({socket}) {
 
     return (
 
         <Routes>
             <Route path="/" element={<PasswordLock />} />
-            <Route path="/maker" element={<Maker />} />
-            <Route path="/database" element={<Database />} />
+            <Route path="/maker" element={<Maker socket={socket}/>} />
+            <Route path="/database" element={<Database socket={socket}/>} />
         </Routes>
        
     );
