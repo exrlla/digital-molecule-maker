@@ -1,23 +1,21 @@
 import PropTypes from 'prop-types';
+import MoleculeDisplay from './MoleculeDisplay';
 
 const Sidebar = ({ images, handleImageSelect, selectedImages }) => {
     return (
-      <div className="sidebar" style={{
-    
-      
-      }}>
+      <div className="sidebar" style={{backgroundColor: 'white', marginTop: "1em", padding: "1rem", width: "200px"}}>
         <h2>Select Molecules</h2>
-        <div className="image-list">
+        <div className="image-list" style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-evenly"}}>
           {images.map((image, index) => (
-            <img
-            width={70}
-              key={index}
-              src={image}
-              alt={`Image ${index}`}
-              onClick={() => handleImageSelect(index)}
-              className={selectedImages.includes(image) ? 'selected' : ''}
-              title={image.substring(11, image.length - 4)}
-            />
+            <div key={index} onClick={() => handleImageSelect(index)}>
+              <MoleculeDisplay 
+                width={70} 
+                height={70}
+                image={image} 
+                className={selectedImages.includes(image) ? 'selected' : ''}
+                style={{marginTop: "0px"}}
+              />
+            </div>
           ))}
         </div>
       </div>

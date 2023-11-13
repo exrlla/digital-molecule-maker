@@ -3,26 +3,20 @@ import MoleculeDisplay from './MoleculeDisplay';
 
 const MainContent = ({ selectedImages }) => {
     return (
-    <div className="main-content" style={{
-        display: 'flex',
-        backgroundColor: 'Gainsboro',
-        borderRadius: '10px',
-        marginInline: '5rem',
-        width: '80%',
-        height: '15rem',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-    }}>
-      {selectedImages.length <= 3 ? (
-        selectedImages.map((image, index) => (
-          <MoleculeDisplay image={image} width={200} height={190} key={index}></MoleculeDisplay>
-          // <img title={image.substring(11, image.length - 4)} width={200} height={190}key={index} src={image} alt={`Selected Image ${index}`} />
-        ))
-      ) : (
-        ''
-      )}
-    </div>
+      <div className="main-content" style={{
+          display: 'flex',
+          backgroundColor: 'Gainsboro',
+          borderRadius: '10px',
+          marginInline: '5rem',
+          width: '80%',
+          height: '15rem',
+          alignItems: 'center',
+          justifyContent: 'center',
+      }}>
+        <MoleculeDisplay image={selectedImages[0]} width={200} height={190}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[1]} width={175} height={190}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[2]} width={175} height={190}></MoleculeDisplay>
+      </div>
     );
 };
 

@@ -122,7 +122,13 @@ const Database = ({socket}) => {
                 <>
                     <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                         <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                            <span style={{flexDirection: "row", display: 'flex', backgroundColor: "white"}}>
+                            <span style={{
+                                flexDirection: "row", 
+                                display: 'flex', 
+                                backgroundColor: "white",  
+                                alignItems: "center", 
+                                justifyContent: "center",
+                                padding: "2rem"}}>
                                 <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
                                 <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
                                 <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
@@ -140,13 +146,13 @@ const Database = ({socket}) => {
                             <h2>
                                 Suggested Molecules:
                             </h2>
-                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
                                 <MoleculeDisplay image={suggested[0][0]} width={200} height={150}></MoleculeDisplay>
                                 <MoleculeDisplay image={suggested[0][1]} width={175} height={150}></MoleculeDisplay>
                                 <MoleculeDisplay image={suggested[0][2]} width={175} height={150}></MoleculeDisplay>
                             </span>
                             <br />
-                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
                                 <MoleculeDisplay image={suggested[1][0]} width={200} height={150}></MoleculeDisplay>
                                 <MoleculeDisplay image={suggested[1][1]} width={175} height={150}></MoleculeDisplay>
                                 <MoleculeDisplay image={suggested[1][2]} width={175} height={150}></MoleculeDisplay>

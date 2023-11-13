@@ -4,9 +4,9 @@ const MoleculeDisplay = ({image, width, height}) => {
     const name = image.substring(11, image.length - 4);
     return (
         <>
-            <div style={{width: width + "px", heigh: height + "px", display: 'flex', flexDirection: 'column', padding: '1rem'}}>
+            <div style={{width: width, heigh: height, display: 'flex', flexDirection: 'column'}}>
                 <img src={image}/>
-                <p>{name}</p>
+                <p style={{marginTop: "2px"}}>{name}</p>
             </div>
         </>
     );

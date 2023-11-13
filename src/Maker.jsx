@@ -26,24 +26,24 @@ const Maker = ({socket}) => {
     'src/assets/C7H4N.png',
   ];
 
-  const handleImageSelect = (index) => {  
+  const handleImageSelect = (index) => { 
+    console.log(index) 
     var selectedImage = images[index];
     const molecule = allMolecules[selectedImage];
     if (molecule.color == "purple") {
       setSelectedImages([selectedImage, selectedImages[1], selectedImages[2]]);
-      // socket.emit('imagesSelected', [selectedImage, selectedImages[1], selectedImages[2]]);
     } else if (molecule.color == "green") {
       setSelectedImages([selectedImages[0], selectedImage, selectedImages[2]])
-      // socket.emit('imagesSelected', [selectedImages[0], selectedImage, selectedImages[2]]);
     } else if (molecule.color == "blue") {
       setSelectedImages([selectedImages[0], selectedImages[1], selectedImage])
-      // socket.emit('imagesSelected', [selectedImages[0], selectedImages[1], selectedImage]);
     }
   }
 
   const handleSubmit = () => {
     if (selectedImages.length == 3 && selectedImages[0] != purple && selectedImages[1] != green && selectedImages[2] != blue) {
       socket.emit('imagesSelected', selectedImages);
+    } else {
+      alert("Invalid moleucle submitted!");
     }
   }
 

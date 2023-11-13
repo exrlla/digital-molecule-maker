@@ -11,7 +11,7 @@ const Loading = () => {
                     height={100}
                     width={100}
                 />
-                <h1>Analyzing</h1>
+                <h1 style={{fontFamily: "serif", fontVariant: "small-caps"}}>Analyzing</h1>
             </div>
         </>
     )
