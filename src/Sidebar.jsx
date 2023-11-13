@@ -10,10 +10,8 @@ const Sidebar = ({ images, handleImageSelect, selectedImages }) => {
           {/* Maps each image available to a MoleculeDisplay option */}
           {images.map((image, index) => (
             // When a sidebar molecule is clicked, the molecule will be added to the built molecule
-            <div key={index} onClick={() => handleImageSelect(index)} style={{marginTop: ".2rem"}}>
+            <div key={index} onClick={() => handleImageSelect(index)} style={{marginTop: ".2rem", width: "45%"}}>
               <MoleculeDisplay 
-                width={80} 
-                height={65}
                 image={image} 
                 className={selectedImages.includes(image) ? 'selected' : ''}
               />

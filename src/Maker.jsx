@@ -47,7 +47,7 @@ const Maker = ({socket}) => {
     if (selectedImages.length == 3 && selectedImages[0] != purple && selectedImages[1] != green && selectedImages[2] != blue) {
       socket.emit('imagesSelected', selectedImages);
     } else {
-      //if an invalid molecule is submitted, show alert and do not send molecule to databse page
+      //if an invalid molecule is submitted, show alert and do not send molecule to databse
       alert("Invalid moleucle submitted!");
     }
   }
