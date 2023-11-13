@@ -3,21 +3,24 @@ import ReactDOM from 'react-dom/client';
 import { Chart } from "react-google-charts";
 import allMolecules from "./molecule_database";
 import MoleculeDisplay from './MoleculeDisplay';
+import Loading from './Loading';
 // import io from 'socket.io-client';
 
 const Database = ({socket}) => {
     const [selectedImages, setSelectedImages] = useState([]);
+    const [loading, setLoading] = useState(false);
   
     useEffect(() => {
-      socket.on('updateImages', (updatedImages) => {
-         console.log("SOCKET DATABSE:", updatedImages)
-        setSelectedImages(updatedImages);
-      }, [selectedImages]); // Listen for changes in selectedImages
+        socket.on('updateImages', (updatedImages) => {
+            setLoading(true);
+            setTimeout(() => setLoading(false), 2000);
+            setSelectedImages(updatedImages);
+        }, [selectedImages]); // Listen for changes in selectedImages
   
-      return () => {
-        // Cleanup function (e.g., removing event listeners)
-        socket.off('updateImages');
-      };
+        return () => {
+            // Cleanup function (e.g., removing event listeners)
+            socket.off('updateImages');
+        };
     }, [socket]); // Empty dependency array means this effect runs once when the component mounts
 
     const getSuggestedMolecule = ([filename1, filename2, filename3]) => {
@@ -82,80 +85,84 @@ const Database = ({socket}) => {
     }
 
     if (selectedImages.length == 3 && selectedImages[0] != "src/assets/purple.png" && selectedImages[1] != "src/assets/green.png" && selectedImages[2] != "src/assets/blue.png") {
-        const molecules = [allMolecules[selectedImages[0]], allMolecules[selectedImages[1]], allMolecules[selectedImages[2]]];
+        if (loading) {
+            return (
+                <>
+                    <Loading />
+                </>
+            )
+        } else {
+            const molecules = [allMolecules[selectedImages[0]], allMolecules[selectedImages[1]], allMolecules[selectedImages[2]]];
 
-        const data = [
-            [
-            "Property",
-            "Scale",
-            ],
-            ["Weight", (molecules[0].weight + molecules[1].weight + molecules[2].weight) / 3.0],
-            ["Light Absorption", (molecules[0].light_absorption + molecules[1].light_absorption + molecules[2].light_absorption) / 3.0],
-            ["Lifespan", (molecules[0].lifespan + molecules[1].lifespan + molecules[2].lifespan) / 3.0],
-            ["Band Gap", (molecules[0].bandgap + molecules[1].bandgap + molecules[2].bandgap) / 3.0]
-        ];
+            const data = [
+                [
+                "Property",
+                "Scale",
+                ],
+                ["Weight", (molecules[0].weight + molecules[1].weight + molecules[2].weight) / 3.0],
+                ["Light Absorption", (molecules[0].light_absorption + molecules[1].light_absorption + molecules[2].light_absorption) / 3.0],
+                ["Lifespan", (molecules[0].lifespan + molecules[1].lifespan + molecules[2].lifespan) / 3.0],
+                ["Band Gap", (molecules[0].bandgap + molecules[1].bandgap + molecules[2].bandgap) / 3.0]
+            ];
 
-        const options = {
-            title: "Molecule Properties & Statistics",
-            width: 600,
-            height: 400,
-            bar: { groupWidth: "95%" },
-            legend: { position: "none" },
-            hAxis: {
-                minValue: 10,
-                },
-        };
+            const options = {
+                title: "Molecule Properties & Statistics",
+                width: 600,
+                height: 400,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+                hAxis: {
+                    minValue: 10,
+                    },
+            };
 
-        const suggested = getSuggestedMolecule(selectedImages);
-        console.log(suggested);
+            const suggested = getSuggestedMolecule(selectedImages);
 
-        return (
-            <>
-                <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
-                    <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                        <span style={{flexDirection: "row", display: 'flex', backgroundColor: "white"}}>
-                            <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
-                            <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
-                            <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
+            return (
+                <>
+                    <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                        <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                            <span style={{flexDirection: "row", display: 'flex', backgroundColor: "white"}}>
+                                <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
+                                <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
+                                <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
+                            </span>
+                            <Chart
+                                    chartType="BarChart"
+                                    width="100%"
+                                    height="500px"
+                                    data={data}
+                                    options={options}
+                                    style={{marginTop: 3 + 'em'}}
+                            />
+                        </div>
+                        <span>
+                            <h2>
+                                Suggested Molecules:
+                            </h2>
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
+                                <MoleculeDisplay image={suggested[0][0]} width={200} height={150}></MoleculeDisplay>
+                                <MoleculeDisplay image={suggested[0][1]} width={175} height={150}></MoleculeDisplay>
+                                <MoleculeDisplay image={suggested[0][2]} width={175} height={150}></MoleculeDisplay>
+                            </span>
+                            <br />
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
+                                <MoleculeDisplay image={suggested[1][0]} width={200} height={150}></MoleculeDisplay>
+                                <MoleculeDisplay image={suggested[1][1]} width={175} height={150}></MoleculeDisplay>
+                                <MoleculeDisplay image={suggested[1][2]} width={175} height={150}></MoleculeDisplay>
+                            </span>
                         </span>
-                        <Chart
-                                chartType="BarChart"
-                                width="100%"
-                                height="500px"
-                                data={data}
-                                options={options}
-                                style={{marginTop: 3 + 'em'}}
-                        />
                     </div>
-                    <span>
-                        <h2>
-                            Suggested Molecules:
-                        </h2>
-                        <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
-                            <MoleculeDisplay image={suggested[0][0]} width={200} height={150}></MoleculeDisplay>
-                            <MoleculeDisplay image={suggested[0][1]} width={175} height={150}></MoleculeDisplay>
-                            <MoleculeDisplay image={suggested[0][2]} width={175} height={150}></MoleculeDisplay>
-                        </span>
-                        <br />
-                        <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
-                            <MoleculeDisplay image={suggested[1][0]} width={200} height={150}></MoleculeDisplay>
-                            <MoleculeDisplay image={suggested[1][1]} width={175} height={150}></MoleculeDisplay>
-                            <MoleculeDisplay image={suggested[1][2]} width={175} height={150}></MoleculeDisplay>
-                        </span>
-                    </span>
-                </div>
-            </>
-        )
+                </>
+            )
+        }
     }
 
     return (
         <>
-        <div>
-            <h1>Database Page</h1>
-            <div>
-                <h2>Molecule is not valid</h2>
+            <div style={{alignContent: "center", justifyContent: "center", alignSelf: "center", display: "flex", marginTop: "10%"}}>
+                <h1>No molecule selected!</h1>
             </div>
-        </div>
         </>
     )
 }

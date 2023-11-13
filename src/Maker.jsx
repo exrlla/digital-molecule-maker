@@ -31,13 +31,19 @@ const Maker = ({socket}) => {
     const molecule = allMolecules[selectedImage];
     if (molecule.color == "purple") {
       setSelectedImages([selectedImage, selectedImages[1], selectedImages[2]]);
-      socket.emit('imagesSelected', [selectedImage, selectedImages[1], selectedImages[2]]);
+      // socket.emit('imagesSelected', [selectedImage, selectedImages[1], selectedImages[2]]);
     } else if (molecule.color == "green") {
       setSelectedImages([selectedImages[0], selectedImage, selectedImages[2]])
-      socket.emit('imagesSelected', [selectedImages[0], selectedImage, selectedImages[2]]);
+      // socket.emit('imagesSelected', [selectedImages[0], selectedImage, selectedImages[2]]);
     } else if (molecule.color == "blue") {
       setSelectedImages([selectedImages[0], selectedImages[1], selectedImage])
-      socket.emit('imagesSelected', [selectedImages[0], selectedImages[1], selectedImage]);
+      // socket.emit('imagesSelected', [selectedImages[0], selectedImages[1], selectedImage]);
+    }
+  }
+
+  const handleSubmit = () => {
+    if (selectedImages.length == 3 && selectedImages[0] != purple && selectedImages[1] != green && selectedImages[2] != blue) {
+      socket.emit('imagesSelected', selectedImages);
     }
   }
 
@@ -47,6 +53,7 @@ const Maker = ({socket}) => {
     <div className="main-container">
       <Sidebar images={images} handleImageSelect={handleImageSelect} selectedImages={selectedImages} />
       <MainContent selectedImages={selectedImages} />
+      <button style={{padding: "1rem"}} onClick={handleSubmit}>Submit</button>
     </div>
     </section>
   );
