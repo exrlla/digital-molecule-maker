@@ -136,11 +136,11 @@ const Database = ({socket}) => {
                                 />
                             </div>
                             {/* If the best molecule has been found */}
-                            <span>
+                            <span style={{marginRight: "10%"}}>
                                 <h2>
                                     Suggested Molecules:
                                 </h2>
-                                <h1>Best molecule found!</h1>
+                                <h1>Best molecule found! This molecule is ready to be synthesized using the physical molecule maker.</h1>
                             </span>
                         </div>
                     </>
