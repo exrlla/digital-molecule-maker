@@ -20,4 +20,10 @@ MoleculeDisplay.propTypes = {
 };
 
 
+MoleculeDisplay.propTypes = {
+    image: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+};
+
 export default MoleculeDisplay;
