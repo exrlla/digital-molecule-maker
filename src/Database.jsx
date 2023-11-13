@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Chart } from "react-google-charts";
 import allMolecules from "./molecule_database";
+import MoleculeDisplay from './MoleculeDisplay';
 // import io from 'socket.io-client';
 
 const Database = ({socket}) => {
@@ -111,38 +112,36 @@ const Database = ({socket}) => {
         return (
             <>
                 <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
-                    <span style={{width: 50 + "%"}}>
-                        <img src={selectedImages[0]} title={selectedImages[0].substring(11, selectedImages[0].length - 4)} alt="trimer 1" width={200} height={150} />
-                        <img src={selectedImages[1]} title={selectedImages[0].substring(11, selectedImages[1].length - 4)} alt="trimer 2" width={175} height={150} />
-                        <img src={selectedImages[2]} title={selectedImages[0].substring(11, selectedImages[2].length - 4)} alt="trimer 3" width={175} height={150} />
-
+                    <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                        <span style={{flexDirection: "row", display: 'flex', backgroundColor: "white"}}>
+                            <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
+                        </span>
                         <Chart
-                            chartType="BarChart"
-                            width="100%"
-                            height="500px"
-                            data={data}
-                            options={options}
-                            style={{marginTop: 3 + 'em'}}
+                                chartType="BarChart"
+                                width="100%"
+                                height="500px"
+                                data={data}
+                                options={options}
+                                style={{marginTop: 3 + 'em'}}
                         />
-                    </span>
-
-                    <span style={{width: 50 + "%"}}>
+                    </div>
+                    <span>
                         <h2>
                             Suggested Molecules:
                         </h2>
-                        <span>
-                            <img src={suggested[0][0]} title={suggested[0][0].substring(11, suggested[0][0].length - 4)} width={200} height={150} alt="suggested molecule 1"></img>
-                            <img src={suggested[0][1]} title={suggested[0][1].substring(11, suggested[0][1].length - 4)} width={175} height={150} alt="suggested molecule 2"></img>
-                            <img src={suggested[0][2]} title={suggested[0][2].substring(11, suggested[0][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
+                        <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
+                            <MoleculeDisplay image={suggested[0][0]} width={200} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay image={suggested[0][1]} width={175} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay image={suggested[0][2]} width={175} height={150}></MoleculeDisplay>
                         </span>
                         <br />
-                        <span>
-                            <img src={suggested[1][0]} title={suggested[1][0].substring(11, suggested[1][0].length - 4)} width={200} height={150} alt="suggested molecule 1"></img>
-                            <img src={suggested[1][1]} title={suggested[1][1].substring(11, suggested[1][1].length - 4)} width={175} height={150} alt="suggested molecule 2"></img>
-                            <img src={suggested[1][2]} title={suggested[1][2].substring(11, suggested[1][2].length - 4)} width={175} height={150} alt="suggested molecule 3"></img>
+                        <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white'}}>
+                            <MoleculeDisplay image={suggested[1][0]} width={200} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay image={suggested[1][1]} width={175} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay image={suggested[1][2]} width={175} height={150}></MoleculeDisplay>
                         </span>
-                        <br />
-                        Hover over a molecule component to see its name.
                     </span>
                 </div>
             </>
