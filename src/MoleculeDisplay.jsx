@@ -16,14 +16,7 @@ const MoleculeDisplay = ({image, width, height}) => {
 MoleculeDisplay.propTypes = {
     image: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
-};
-
-
-MoleculeDisplay.propTypes = {
-    image: PropTypes.string.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
+    height: PropTypes.number
 };
 
 export default MoleculeDisplay;
