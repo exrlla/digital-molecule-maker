@@ -1,22 +1,19 @@
 import PropTypes from 'prop-types';
 
-const Sidebar = ({ images, handleImageSelect, selectedImages }) => {
+const Sidebar = ({ molecules, handleImageSelect, selectedMolecules }) => {
     return (
-      <div className="sidebar" style={{
-    
-      
-      }}>
+      <div className="sidebar" style={{}}>
         <h2>Select Molecules</h2>
         <div className="image-list">
-          {images.map((image, index) => (
+          {molecules.map((molecule, index) => (
             <img
             width={70}
               key={index}
-              src={image}
+              src={molecule.imagePath}
               alt={`Image ${index}`}
-              onClick={() => handleImageSelect(index)}
-              className={selectedImages.includes(image) ? 'selected' : ''}
-              title={image.substring(11, image.length - 4)}
+              onClick={() => handleImageSelect(molecule.id)}
+              className={selectedMolecules.includes(molecule.id) ? 'selected' : ''}
+              title={molecule.name}
             />
           ))}
         </div>
@@ -25,9 +22,9 @@ const Sidebar = ({ images, handleImageSelect, selectedImages }) => {
   };
   
   Sidebar.propTypes = {
-    images: PropTypes.array.isRequired,
+    molecules: PropTypes.array.isRequired,
     handleImageSelect: PropTypes.func.isRequired,
-    selectedImages: PropTypes.array.isRequired,
+    selectedMolecules: PropTypes.array.isRequired,
   };
   
   export default Sidebar;

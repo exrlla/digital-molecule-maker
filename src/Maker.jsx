@@ -4,40 +4,32 @@ import Sidebar from './Sidebar'
 import MainContent from './MainContent'
 import { useState } from 'react'
 import allMolecules from './molecule_database'
-import Database from './Database'
 
 const Maker = ({socket}) => {
-  const purple = "src/assets/purple.png";
-  const green = "src/assets/green.png";
-  const blue = "src/assets/blue.png"
-  const [selectedImages, setSelectedImages] = useState([purple, green, blue]);
-  const images = [
-    'src/assets/C12H8N.png',
-    'src/assets/C12H10N.png',
-    'src/assets/C14H14N.png',
-    'src/assets/C20H12N.png',
-    'src/assets/C6H3F.png',
-    'src/assets/C6H4.png',
-    'src/assets/C8H6.png',
-    'src/assets/C10H6.png',
-    'src/assets/C4H3N2.png',
-    'src/assets/C4H3S.png',
-    'src/assets/C6H4NO2.png',
-    'src/assets/C7H4N.png',
-  ];
-
-  const handleImageSelect = (index) => {  
-    var selectedImage = images[index];
-    const molecule = allMolecules[selectedImage];
+  const [selectedMolecules, setSelectedMolecules] = useState(["purple", "green", "blue"]);
+  
+  const moleculesArr = Object.entries(allMolecules).map(([key, value]) => (
+    {
+      id: key,
+      ...value,
+    }
+  ));
+  
+  const handleImageSelect = (moleculeKey) => {  
+    const molecule = allMolecules[moleculeKey];
+    const selectedMoleculeName = moleculeKey;
     if (molecule.color == "purple") {
-      setSelectedImages([selectedImage, selectedImages[1], selectedImages[2]]);
-      socket.emit('imagesSelected', [selectedImage, selectedImages[1], selectedImages[2]]);
+      const newSelection = [selectedMoleculeName, selectedMolecules[1], selectedMolecules[2]];
+      setSelectedMolecules(newSelection);
+      socket.emit('imagesSelected', newSelection);
     } else if (molecule.color == "green") {
-      setSelectedImages([selectedImages[0], selectedImage, selectedImages[2]])
-      socket.emit('imagesSelected', [selectedImages[0], selectedImage, selectedImages[2]]);
+      const newSelection = [selectedMolecules[0], selectedMoleculeName, selectedMolecules[2]];
+      setSelectedMolecules(newSelection)
+      socket.emit('imagesSelected', newSelection);
     } else if (molecule.color == "blue") {
-      setSelectedImages([selectedImages[0], selectedImages[1], selectedImage])
-      socket.emit('imagesSelected', [selectedImages[0], selectedImages[1], selectedImage]);
+      const newSelection = [selectedMolecules[0], selectedMolecules[1], selectedMoleculeName];
+      setSelectedMolecules(newSelection)
+      socket.emit('imagesSelected', newSelection);
     }
   }
 
@@ -45,8 +37,8 @@ const Maker = ({socket}) => {
     <section className="maker-container">
         <img className='mmli-img'src={mmli} alt="mmli" />
     <div className="main-container">
-      <Sidebar images={images} handleImageSelect={handleImageSelect} selectedImages={selectedImages} />
-      <MainContent selectedImages={selectedImages} />
+      <Sidebar molecules={moleculesArr} handleImageSelect={handleImageSelect} selectedMolecules={selectedMolecules} />
+      <MainContent selectedMolecules={selectedMolecules} />
     </div>
     </section>
   );
