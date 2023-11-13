@@ -123,6 +123,7 @@ const Database = ({socket}) => {
             return (
                 <>
                     <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                        {/* Display the submitted molecule and its stats */}
                         <div style={{flexDirection: "column", marginRight: "5rem"}}>
                             <span style={{
                                 flexDirection: "row", 
@@ -144,6 +145,7 @@ const Database = ({socket}) => {
                                     style={{marginTop: 3 + 'em'}}
                             />
                         </div>
+                        {/* Display the suggested molecules. */}
                         <span>
                             <h2>
                                 Suggested Molecules:
@@ -165,7 +167,7 @@ const Database = ({socket}) => {
             )
         }
     }
-
+    // If there is no molecule selected or the molecule is invalid
     return (
         <>
             <div style={{alignContent: "center", justifyContent: "center", alignSelf: "center", display: "flex", marginTop: "10%"}}>

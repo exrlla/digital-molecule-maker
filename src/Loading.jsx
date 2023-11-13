@@ -2,6 +2,7 @@ import React from "react";
 import ReactLoading from "react-loading";
 
 const Loading = () => {
+    // A basic loading spinner
     return (
         <>
             <div style={{display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "20%"}}>

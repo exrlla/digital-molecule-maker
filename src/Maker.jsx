@@ -7,10 +7,12 @@ import allMolecules from './molecule_database'
 import Database from './Database'
 
 const Maker = ({socket}) => {
+  //The basic molecule outline
   const purple = "src/assets/purple.png";
   const green = "src/assets/green.png";
   const blue = "src/assets/blue.png"
   const [selectedImages, setSelectedImages] = useState([purple, green, blue]);
+  //the list of all molecules available
   const images = [
     'src/assets/C12H8N.png',
     'src/assets/C12H10N.png',
@@ -26,23 +28,26 @@ const Maker = ({socket}) => {
     'src/assets/C7H4N.png',
   ];
 
+  //Handles adding molecules selected from the sidebar to the currently built molecule.
   const handleImageSelect = (index) => { 
     console.log(index) 
     var selectedImage = images[index];
     const molecule = allMolecules[selectedImage];
-    if (molecule.color == "purple") {
+    if (molecule.color == "purple") { //if the selected molecule is purple, replace the purple molecule
       setSelectedImages([selectedImage, selectedImages[1], selectedImages[2]]);
-    } else if (molecule.color == "green") {
+    } else if (molecule.color == "green") { //if the selected molecule is green, replace the green molecule
       setSelectedImages([selectedImages[0], selectedImage, selectedImages[2]])
-    } else if (molecule.color == "blue") {
+    } else if (molecule.color == "blue") { //if the selected molecule is blue, replace the blue molecule
       setSelectedImages([selectedImages[0], selectedImages[1], selectedImage])
     }
   }
 
   const handleSubmit = () => {
+    // if the molecule built is valid, on submit, send the molecule to the database page
     if (selectedImages.length == 3 && selectedImages[0] != purple && selectedImages[1] != green && selectedImages[2] != blue) {
       socket.emit('imagesSelected', selectedImages);
     } else {
+      //if an invalid molecule is submitted, show alert and do not send molecule to databse page
       alert("Invalid moleucle submitted!");
     }
   }

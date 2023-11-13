@@ -3,6 +3,7 @@ import MoleculeDisplay from './MoleculeDisplay';
 
 const MainContent = ({ selectedImages }) => {
     return (
+      // shows the molecule the user has currently built.
       <div className="main-content" style={{
           display: 'flex',
           backgroundColor: 'Gainsboro',
@@ -13,9 +14,9 @@ const MainContent = ({ selectedImages }) => {
           alignItems: 'center',
           justifyContent: 'center',
       }}>
-        <MoleculeDisplay image={selectedImages[0]} width={200} height={190}></MoleculeDisplay>
-        <MoleculeDisplay image={selectedImages[1]} width={175} height={190}></MoleculeDisplay>
-        <MoleculeDisplay image={selectedImages[2]} width={175} height={190}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
       </div>
     );
 };
