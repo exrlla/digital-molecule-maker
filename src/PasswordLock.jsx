@@ -13,14 +13,12 @@ const PasswordLock = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log("handling submit");
     e.preventDefault()
-    if (password === "7534186168") {
+    if (password === "7534186168") { //if password is correct, re-route to the maker page
       window.location.href = "/maker";
       Navigate("database");
-    } else {
+    } else { //if password incorrect, alert and don't change the page
       alert("Wrong password!");
-      e.preventDefault();
     }
   }
   
@@ -32,9 +30,10 @@ const PasswordLock = () => {
         <div className='center'> 
           <img src={avatar} alt="Avatar" width={120}/>
         </div>
+        {/* Below is the submit form. Handles the user inputting a password and submitting it. */}
         <form name='submit box' onSubmit={handleSubmit} className='center'>
           <label>
-            <input name='password box' type="text" value={password} onChange={handleChange}>
+            <input name='password box' type="text" value={password} onChange={handleChange} autoComplete='off'>
             </input>
             <button type="submit">Submit</button>
           </label>
