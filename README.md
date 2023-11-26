@@ -13,8 +13,6 @@ In main folder:
 
 npm install
 
-In main folder: 
-
 node server.cjs
 
 In /src folder:

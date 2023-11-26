@@ -14,7 +14,6 @@ const PasswordLock = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (password === "7534186168") { //if password is correct, re-route to the maker page
-      window.open('/database', '_blank')
       window.location.href = "/maker";
       window.focus();
     } else { //if password incorrect, alert and don't change the page
