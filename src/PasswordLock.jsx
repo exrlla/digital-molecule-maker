@@ -3,7 +3,6 @@ import avatar from "./assets/INFO418_login_avatar.png"
 import icons from "./assets/INFO418_login_icons.png"
 
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 
 const PasswordLock = () => {
   const [password, setPassword] = useState("");
@@ -15,8 +14,9 @@ const PasswordLock = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (password === "7534186168") { //if password is correct, re-route to the maker page
+      window.open('/database', '_blank')
       window.location.href = "/maker";
-      Navigate("database");
+      window.focus();
     } else { //if password incorrect, alert and don't change the page
       alert("Wrong password!");
     }

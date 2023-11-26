@@ -9,8 +9,14 @@ Currently, two official plugins are available:
 
 How to run:
 
+In main folder:
+
 npm install
 
+In main folder: 
+
 node server.cjs
+
+In /src folder:
 
 npm run dev
