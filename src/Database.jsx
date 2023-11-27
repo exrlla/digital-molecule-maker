@@ -64,6 +64,7 @@ const Database = ({socket}) => {
     )
 }
 
+// Gets the data for the graph for the properties of the molecule
 const getMoleculeProperties = (selectedImages) => {
      //get molecule information from the molecule list
      const molecules = selectedImages.map((image, i) => {
@@ -91,6 +92,7 @@ const getMoleculeProperties = (selectedImages) => {
      return data;
 }
 
+// Displays the page with the suggested molecules
 const displaySuggestionPage = (selectedImages, suggested, data, options) => {
     return (
         <>
@@ -104,9 +106,9 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                         alignItems: "center", 
                         justifyContent: "center",
                         padding: "2rem"}}>
-                        <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
+                        {selectedImages.map((image, i) => (
+                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                        ))}
                     </span>
                     <Chart
                             chartType="BarChart"
@@ -122,23 +124,23 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                     <h2>
                         Suggested Molecules:
                     </h2>
-                    <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
-                        <MoleculeDisplay image={suggested[0][0]} width={200} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={suggested[0][1]} width={175} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={suggested[0][2]} width={175} height={150}></MoleculeDisplay>
-                    </span>
-                    <br />
-                    <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
-                        <MoleculeDisplay image={suggested[1][0]} width={200} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={suggested[1][1]} width={175} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={suggested[1][2]} width={175} height={150}></MoleculeDisplay>
-                    </span>
+                    {suggested.map((suggestedTrimer, i) => (
+                        <div key={i}>
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
+                                {suggestedTrimer.map((image, j) => (
+                                    <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                                ))}
+                            </span>
+                            <br />
+                        </div>
+                    ))}
                 </span>
             </div>
         </>
     )
 }
 
+// Displayes the page when final molecule is submitted
 const displayWinningPage = (selectedImages, data, options) => {
     return (
         <>
@@ -152,9 +154,9 @@ const displayWinningPage = (selectedImages, data, options) => {
                         alignItems: "center", 
                         justifyContent: "center",
                         padding: "2rem"}}>
-                        <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
-                        <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
+                        {selectedImages.map((image, i) => (
+                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                        ))}
                     </span>
                     <Chart
                             chartType="BarChart"
