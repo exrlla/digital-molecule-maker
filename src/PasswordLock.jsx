@@ -1,7 +1,7 @@
 import './App.css'
 import avatar from "./assets/INFO418_login_avatar.png"
 import icons from "./assets/INFO418_login_icons.png"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function currentTime() {
   let date = new Date(); 
