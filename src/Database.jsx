@@ -75,8 +75,8 @@ const getMoleculeProperties = (selectedImages) => {
      const numMolecules = molecules.length;
 
      const weightSum = molecules.reduce((acc, currImage) => {return acc + currImage.weight}, 0);
-     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.light_absorption}, 0);
-     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.lifespan}, 0);
+     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.reactivity}, 0);
+     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.activation_energy}, 0);
      const bandGapSum = molecules.reduce((acc, currImage) => {return acc + currImage.bandgap}, 0);
      
      //calculates the data by computing the average stats of the 3 molecules
@@ -86,8 +86,8 @@ const getMoleculeProperties = (selectedImages) => {
          "Scale",
          ],
          ["Weight", weightSum / numMolecules],
-         ["Light Absorption", lightAbsorptionSum / numMolecules],
-         ["Lifespan", lifespanSum / numMolecules],
+         ["Reactivity", lightAbsorptionSum / numMolecules],
+         ["Activation Energy", lifespanSum / numMolecules],
          ["Band Gap", bandGapSum / numMolecules]
      ];
 
@@ -101,7 +101,7 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                <h2>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
                         Your Selected Molecule:
                     </h2>
                     <span style={{
@@ -152,6 +152,9 @@ const displayWinningPage = (selectedImages, data, options) => {
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                        Your Selected Molecule:
+                    </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
@@ -190,6 +193,9 @@ const displayInvalidPage = (selectedImages, data, options) => {
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                        Your Selected Molecule:
+                    </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
