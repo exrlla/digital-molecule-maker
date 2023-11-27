@@ -6,6 +6,9 @@ const GetSuggestedMolecule = ([filename1, filename2, filename3]) => {
     const molecule1 = allMolecules[filename1];
     const molecule2 = allMolecules[filename2];
     const molecule3 = allMolecules[filename3];
+    if (molecule1.rank == -1 || molecule2.rank == -1 || molecule3.rank == -1) {
+        return false;
+    }
     var replace = -1;
     
     // finds the first molecule that isn't fully optimized

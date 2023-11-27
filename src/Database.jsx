@@ -47,10 +47,12 @@ const Database = ({socket}) => {
 
             const suggested = getSuggestedMolecule(selectedImages);
 
-            if (suggested !== true) {
-                return displaySuggestionPage(selectedImages, suggested, data, options);
-            } else {
+            if (suggested === true) {
                 return displayWinningPage(selectedImages, data, options);
+            } else if (suggested === false) {
+                return displayInvalidPage(selectedImages, data, options);
+            } else {
+                return displaySuggestionPage(selectedImages, suggested, data, options);
             }
         }
     }
@@ -73,8 +75,8 @@ const getMoleculeProperties = (selectedImages) => {
      const numMolecules = molecules.length;
 
      const weightSum = molecules.reduce((acc, currImage) => {return acc + currImage.weight}, 0);
-     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.light_absorption}, 0);
-     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.lifespan}, 0);
+     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.reactivity}, 0);
+     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.activation_energy}, 0);
      const bandGapSum = molecules.reduce((acc, currImage) => {return acc + currImage.bandgap}, 0);
      
      //calculates the data by computing the average stats of the 3 molecules
@@ -84,8 +86,8 @@ const getMoleculeProperties = (selectedImages) => {
          "Scale",
          ],
          ["Weight", weightSum / numMolecules],
-         ["Light Absorption", lightAbsorptionSum / numMolecules],
-         ["Lifespan", lifespanSum / numMolecules],
+         ["Reactivity", lightAbsorptionSum / numMolecules],
+         ["Activation Energy", lifespanSum / numMolecules],
          ["Band Gap", bandGapSum / numMolecules]
      ];
 
@@ -99,7 +101,7 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                <h2>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
                         Your Selected Molecule:
                     </h2>
                     <span style={{
@@ -150,6 +152,9 @@ const displayWinningPage = (selectedImages, data, options) => {
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                        Your Selected Molecule:
+                    </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
@@ -176,6 +181,39 @@ const displayWinningPage = (selectedImages, data, options) => {
                         Suggested Molecules:
                     </h2>
                     <h1>Best molecule found! This molecule is ready to be synthesized using the physical molecule maker.</h1>
+                </span>
+            </div>
+        </>
+    )
+}
+
+const displayInvalidPage = (selectedImages, data, options) => {
+    return (
+        <>
+            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                {/* Display the submitted molecule and its stats */}
+                <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                        Your Selected Molecule:
+                    </h2>
+                    <span style={{
+                        flexDirection: "row", 
+                        display: 'flex', 
+                        backgroundColor: "white",  
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        padding: "2rem"}}>
+                        {selectedImages.map((image, i) => (
+                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                        ))}
+                    </span>
+                </div>
+                {/* If the best molecule has been found */}
+                <span style={{marginRight: "10%"}}>
+                    <h2>
+                        Suggested Molecules:
+                    </h2>
+                    <h1>No suggested molecules for the selected molecule found. Try again!</h1>
                 </span>
             </div>
         </>
