@@ -12,7 +12,7 @@ const Database = ({socket}) => {
     useEffect(() => {
         socket.on('updateImages', (updatedImages) => {
             setLoading(true);
-            setTimeout(() => setLoading(false), 2000); //add loading screen for 2 seconds
+            setTimeout(() => setLoading(false), 5000); //add loading screen for 5 seconds
             setSelectedImages(updatedImages);
         }, [selectedImages]); // Listen for changes in selectedImages
   
