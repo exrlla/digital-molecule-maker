@@ -106,6 +106,33 @@ const MoleculeDatabase = {
         "lifespan": 9.8,
         "bandgap": 8.1,
         "rank": 4
+    },
+    'src/assets/C6H4O4.png': {
+        "name": "c6h4o4",
+        "color": "purple",
+        "weight": 1,
+        "light_absorption": 1,
+        "lifespan": 1,
+        "bandgap": 1,
+        "rank": -1
+    },
+    'src/assets/C15H14BNO4S.png': {
+        "name": "c15h14bno4s",
+        "color": "green",
+        "weight": 1,
+        "light_absorption": 1,
+        "lifespan": 1,
+        "bandgap": 1,
+        "rank": -1
+    },
+    'src/assets/C6H2O2.png': {
+        "name": "c6h2o2",
+        "color": "blue",
+        "weight": 1,
+        "light_absorption": 1,
+        "lifespan": 1,
+        "bandgap": 1,
+        "rank": -1
     }
 };
 

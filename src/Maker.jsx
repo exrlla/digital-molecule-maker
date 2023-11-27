@@ -17,14 +17,17 @@ const Maker = ({socket}) => {
     'src/assets/C12H10N.png',
     'src/assets/C14H14N.png',
     'src/assets/C20H12N.png',
+    'src/assets/C6H4O4.png',
     'src/assets/C6H3F.png',
     'src/assets/C6H4.png',
     'src/assets/C8H6.png',
     'src/assets/C10H6.png',
+    'src/assets/C15H14BNO4S.png',
     'src/assets/C4H3N2.png',
     'src/assets/C4H3S.png',
     'src/assets/C6H4NO2.png',
     'src/assets/C7H4N.png',
+    'src/assets/C6H2O2.png'
   ];
 
   //Handles adding molecules selected from the sidebar to the currently built molecule.

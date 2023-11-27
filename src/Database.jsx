@@ -47,10 +47,12 @@ const Database = ({socket}) => {
 
             const suggested = getSuggestedMolecule(selectedImages);
 
-            if (suggested !== true) {
-                return displaySuggestionPage(selectedImages, suggested, data, options);
-            } else {
+            if (suggested === true) {
                 return displayWinningPage(selectedImages, data, options);
+            } else if (suggested === false) {
+                return displayInvalidPage(selectedImages, data, options);
+            } else {
+                return displaySuggestionPage(selectedImages, suggested, data, options);
             }
         }
     }
@@ -173,6 +175,36 @@ const displayWinningPage = (selectedImages, data, options) => {
                         Suggested Molecules:
                     </h2>
                     <h1>Best molecule found! This molecule is ready to be synthesized using the physical molecule maker.</h1>
+                </span>
+            </div>
+        </>
+    )
+}
+
+const displayInvalidPage = (selectedImages, data, options) => {
+    return (
+        <>
+            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                {/* Display the submitted molecule and its stats */}
+                <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <span style={{
+                        flexDirection: "row", 
+                        display: 'flex', 
+                        backgroundColor: "white",  
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        padding: "2rem"}}>
+                        {selectedImages.map((image, i) => (
+                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                        ))}
+                    </span>
+                </div>
+                {/* If the best molecule has been found */}
+                <span style={{marginRight: "10%"}}>
+                    <h2>
+                        Suggested Molecules:
+                    </h2>
+                    <h1>No suggested molecules for the selected molecule found. Try again!</h1>
                 </span>
             </div>
         </>
