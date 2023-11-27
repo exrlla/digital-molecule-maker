@@ -10,7 +10,7 @@ const Maker = ({socket}) => {
   const purple = "src/assets/purple.png";
   const green = "src/assets/green.png";
   const blue = "src/assets/blue.png"
-  const [selectedImages, setSelectedImages] = useState([purple, green, blue]);
+  const [selectedImages, setSelectedImages] = useState(['src/assets/C12H10N.png', "src/assets/C6H3F.png", "src/assets/C6H4NO2.png"]);
   //the list of all molecules available
   const images = [
     'src/assets/C12H8N.png',

@@ -1,9 +1,7 @@
 import './App.css'
 import avatar from "./assets/INFO418_login_avatar.png"
 import icons from "./assets/INFO418_login_icons.png"
-
-import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function currentTime() {
   let date = new Date(); 
@@ -38,9 +36,7 @@ const PasswordLock = () => {
     if (password === "7534186168") { 
       // if password is correct, re-route to the maker page
       window.location.href = "/maker";
-      Navigate("database");
-    } else { 
-      // if password incorrect, alert and don't change the page
+    } else { //if password incorrect, alert and don't change the page
       alert("Wrong password!");
     }
   }
