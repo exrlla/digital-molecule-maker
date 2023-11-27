@@ -10,7 +10,6 @@ import Loading from './Loading';
 const Database = ({socket}) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [bestFound, setBestFound] = useState(false);
   
     useEffect(() => {
         socket.on('updateImages', (updatedImages) => {

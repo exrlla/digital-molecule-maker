@@ -16,7 +16,9 @@ const PasswordLock = () => {
     e.preventDefault()
     if (password === "7534186168") { //if password is correct, re-route to the maker page
       window.location.href = "/maker";
-      Navigate("database");
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
     } else { //if password incorrect, alert and don't change the page
       alert("Wrong password!");
     }
