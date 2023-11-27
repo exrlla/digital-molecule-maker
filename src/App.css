@@ -5,16 +5,17 @@
 
 body {
   background-image: url("/src/assets/INFO418_login_background.webp");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .clock_time {
   font-family: system-ui;
-  color: black;
-  text-align: center;
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-  font-size: 100px;
+  color: white;
+
+  font-size: 150px;
   opacity: 0.5;
 }
 

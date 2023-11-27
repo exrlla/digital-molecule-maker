@@ -56,23 +56,59 @@ const PasswordLock = () => {
   }, []);
   
   return (
-    <>
-        <div className='top_right'>
+    <section>
+      <div style={
+          {
+            
+            display: "flex",
+            justifyContent: "right",
+            paddingRight: "30px",
+
+          }
+        }>
           <img src={icons} alt="Icons" width={60}/>
         </div>
-        <div className='center'> 
+      <div
+      style={{
+           // centers the content vertically and horizontally
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "70vh",
+      }}>
+        
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+    
+     
+        }}> 
           <img src={avatar} alt="Avatar" width={120}/>
+          <form name='submit box' onSubmit={handleSubmit} className='center'>
+            <label>
+              <input name='password box' type="text" value={password} onChange={handleChange} autoComplete='off'>
+              </input>
+              <button type="submit">Submit</button>
+            </label>
+          </form>
         </div>
-        <div className='clock_time' id='clock'></div>
+
         {/* Below is the submit form. Handles the user inputting a password and submitting it. */}
-        <form name='submit box' onSubmit={handleSubmit} className='center'>
-          <label>
-            <input name='password box' type="text" value={password} onChange={handleChange} autoComplete='off'>
-            </input>
-            <button type="submit">Submit</button>
-          </label>
-        </form>
-    </>
+        
+        </div>
+      <div style={{
+        // position the clock in the bottom right corner
+        position: "absolute",
+        bottom: "0",
+        left: "0",
+        paddingLeft: "30px"
+
+    
+      }}
+          className='clock_time' id='clock'></div>
+    </section>
   )
 }
 
