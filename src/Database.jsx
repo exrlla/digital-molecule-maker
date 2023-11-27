@@ -101,6 +101,9 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
             <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                <h2>
+                        Your Selected Molecule:
+                    </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
