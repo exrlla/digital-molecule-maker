@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
 import { Chart } from "react-google-charts";
 import allMolecules from "./molecule_database";
 import MoleculeDisplay from './MoleculeDisplay';
 import getSuggestedMolecule from './GetSuggestedMolecule';
 import Loading from './Loading';
-// import io from 'socket.io-client';
 
 const Database = ({socket}) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [bestFound, setBestFound] = useState(false);
   
     useEffect(() => {
         socket.on('updateImages', (updatedImages) => {
@@ -34,20 +31,7 @@ const Database = ({socket}) => {
                 </>
             )
         } else {
-            //get molecule information from the molecule list
-            const molecules = [allMolecules[selectedImages[0]], allMolecules[selectedImages[1]], allMolecules[selectedImages[2]]];
-
-            //calculates the data by computing the average stats of the 3 molecules
-            const data = [
-                [
-                "Property",
-                "Scale",
-                ],
-                ["Weight", (molecules[0].weight + molecules[1].weight + molecules[2].weight) / 3.0],
-                ["Light Absorption", (molecules[0].light_absorption + molecules[1].light_absorption + molecules[2].light_absorption) / 3.0],
-                ["Lifespan", (molecules[0].lifespan + molecules[1].lifespan + molecules[2].lifespan) / 3.0],
-                ["Band Gap", (molecules[0].bandgap + molecules[1].bandgap + molecules[2].bandgap) / 3.0]
-            ];
+            const data = getMoleculeProperties(selectedImages);
 
             //the graph display options
             const options = {
@@ -64,87 +48,9 @@ const Database = ({socket}) => {
             const suggested = getSuggestedMolecule(selectedImages);
 
             if (suggested !== true) {
-                return (
-                    <>
-                        <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
-                            {/* Display the submitted molecule and its stats */}
-                            <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                                <span style={{
-                                    flexDirection: "row", 
-                                    display: 'flex', 
-                                    backgroundColor: "white",  
-                                    alignItems: "center", 
-                                    justifyContent: "center",
-                                    padding: "2rem"}}>
-                                    <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
-                                </span>
-                                <Chart
-                                        chartType="BarChart"
-                                        width="100%"
-                                        height="500px"
-                                        data={data}
-                                        options={options}
-                                        style={{marginTop: 3 + 'em'}}
-                                />
-                            </div>
-                            {/* Display the suggested molecules if the best molecule has not been found yet. */}
-                            <span>
-                                <h2>
-                                    Suggested Molecules:
-                                </h2>
-                                <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
-                                    <MoleculeDisplay image={suggested[0][0]} width={200} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={suggested[0][1]} width={175} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={suggested[0][2]} width={175} height={150}></MoleculeDisplay>
-                                </span>
-                                <br />
-                                <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
-                                    <MoleculeDisplay image={suggested[1][0]} width={200} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={suggested[1][1]} width={175} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={suggested[1][2]} width={175} height={150}></MoleculeDisplay>
-                                </span>
-                            </span>
-                        </div>
-                    </>
-                )
+                return displaySuggestionPage(selectedImages, suggested, data, options);
             } else {
-                return (
-                    <>
-                        <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
-                            {/* Display the submitted molecule and its stats */}
-                            <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                                <span style={{
-                                    flexDirection: "row", 
-                                    display: 'flex', 
-                                    backgroundColor: "white",  
-                                    alignItems: "center", 
-                                    justifyContent: "center",
-                                    padding: "2rem"}}>
-                                    <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
-                                    <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
-                                </span>
-                                <Chart
-                                        chartType="BarChart"
-                                        width="100%"
-                                        height="500px"
-                                        data={data}
-                                        options={options}
-                                        style={{marginTop: 3 + 'em'}}
-                                />
-                            </div>
-                            {/* If the best molecule has been found */}
-                            <span style={{marginRight: "10%"}}>
-                                <h2>
-                                    Suggested Molecules:
-                                </h2>
-                                <h1>Best molecule found! This molecule is ready to be synthesized using the physical molecule maker.</h1>
-                            </span>
-                        </div>
-                    </>
-                )
+                return displayWinningPage(selectedImages, data, options);
             }
         }
     }
@@ -153,6 +59,121 @@ const Database = ({socket}) => {
         <>
             <div style={{alignContent: "center", justifyContent: "center", alignSelf: "center", display: "flex", marginTop: "10%"}}>
                 <h1>No molecule selected!</h1>
+            </div>
+        </>
+    )
+}
+
+// Gets the data for the graph for the properties of the molecule
+const getMoleculeProperties = (selectedImages) => {
+     //get molecule information from the molecule list
+     const molecules = selectedImages.map((image, i) => {
+        return allMolecules[image];
+    });
+     const numMolecules = molecules.length;
+
+     const weightSum = molecules.reduce((acc, currImage) => {return acc + currImage.weight}, 0);
+     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.light_absorption}, 0);
+     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.lifespan}, 0);
+     const bandGapSum = molecules.reduce((acc, currImage) => {return acc + currImage.bandgap}, 0);
+     
+     //calculates the data by computing the average stats of the 3 molecules
+     const data = [
+         [
+         "Property",
+         "Scale",
+         ],
+         ["Weight", weightSum / numMolecules],
+         ["Light Absorption", lightAbsorptionSum / numMolecules],
+         ["Lifespan", lifespanSum / numMolecules],
+         ["Band Gap", bandGapSum / numMolecules]
+     ];
+
+     return data;
+}
+
+// Displays the page with the suggested molecules
+const displaySuggestionPage = (selectedImages, suggested, data, options) => {
+    return (
+        <>
+            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                {/* Display the submitted molecule and its stats */}
+                <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <span style={{
+                        flexDirection: "row", 
+                        display: 'flex', 
+                        backgroundColor: "white",  
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        padding: "2rem"}}>
+                        {selectedImages.map((image, i) => (
+                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                        ))}
+                    </span>
+                    <Chart
+                            chartType="BarChart"
+                            width="100%"
+                            height="500px"
+                            data={data}
+                            options={options}
+                            style={{marginTop: 3 + 'em'}}
+                    />
+                </div>
+                {/* Display the suggested molecules if the best molecule has not been found yet. */}
+                <span>
+                    <h2>
+                        Suggested Molecules:
+                    </h2>
+                    {suggested.map((suggestedTrimer, i) => (
+                        <div key={i}>
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
+                                {suggestedTrimer.map((image, j) => (
+                                    <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                                ))}
+                            </span>
+                            <br />
+                        </div>
+                    ))}
+                </span>
+            </div>
+        </>
+    )
+}
+
+// Displayes the page when final molecule is submitted
+const displayWinningPage = (selectedImages, data, options) => {
+    return (
+        <>
+            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+                {/* Display the submitted molecule and its stats */}
+                <div style={{flexDirection: "column", marginRight: "5rem"}}>
+                    <span style={{
+                        flexDirection: "row", 
+                        display: 'flex', 
+                        backgroundColor: "white",  
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        padding: "2rem"}}>
+                        {selectedImages.map((image, i) => (
+                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                        ))}
+                    </span>
+                    <Chart
+                            chartType="BarChart"
+                            width="100%"
+                            height="500px"
+                            data={data}
+                            options={options}
+                            style={{marginTop: 3 + 'em'}}
+                    />
+                </div>
+                {/* If the best molecule has been found */}
+                <span style={{marginRight: "10%"}}>
+                    <h2>
+                        Suggested Molecules:
+                    </h2>
+                    <h1>Best molecule found! This molecule is ready to be synthesized using the physical molecule maker.</h1>
+                </span>
             </div>
         </>
     )
