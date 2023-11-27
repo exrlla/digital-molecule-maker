@@ -84,7 +84,7 @@ import allMolecules from "./molecule_database";
 // Since that is not the best molecule from the suggestions the player is shown again all the molecules of rank = 1 as suggestions
 // ... Player continues until the correct purple molecule of the last rank is chosen.
 const GetSuggestedMolecule = (selectedImages) => {
-    const finalRank = 2; //TODO
+    const finalRank = 3; //TODO
     // First we get the actual objects for our molecules
     const molecules = selectedImages.map((image, i) => {
         return allMolecules[image];
@@ -134,7 +134,7 @@ const GetSuggestedMolecule = (selectedImages) => {
 
         // For each of the recommended molecules we create a trimer that is the same as the clicked images except for the new molecule
         choices.forEach((choice) => {
-            const newTrimer = [...selectedMolecules];
+            const newTrimer = [...selectedImages];
             newTrimer[toImproveSpot] = choice;
             recommendations.push(newTrimer);
         })
@@ -144,7 +144,7 @@ const GetSuggestedMolecule = (selectedImages) => {
         const choices = getAllRelevantMolecules(toImproveMolecule.rank, toImproveMolecule.color);
         const recommendations = []
         choices.forEach((choice) => {
-            const newTrimer = [...selectedMolecules];
+            const newTrimer = [...selectedImages];
             newTrimer[toImproveSpot] = choice;
             recommendations.push(newTrimer);
         })
