@@ -29,11 +29,7 @@ function createWindow(url, screenIndex) {
 app.whenReady().then(() => {
 
     // We cannot require the screen module until the app is ready.
-  const { screen } = require('electron')
-
-  // Create a window that fills the screen's available work area.
-  const primaryDisplay = screen.getPrimaryDisplay()
-  const { width, height } = primaryDisplay.workAreaSize
+  const { screen } = require('electron');
 
   mainWindow = createWindow('http://localhost:5173/', 0);
   databaseWindow = createWindow('http://localhost:5173/database', 1);
