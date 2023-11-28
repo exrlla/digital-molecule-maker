@@ -15,7 +15,7 @@ function createWindow(url, screenIndex) {
 
   const window = new BrowserWindow({
     fullscreen: true,
-    x: currScreen.bounds.x,
+    x: currScreen.bounds.x + 1920,
     y: currScreen.bounds.y,
     width,
     height,
