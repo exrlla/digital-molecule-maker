@@ -1,9 +1,9 @@
 import './App.css'
-import mmli from './assets/mmli.png'
 import Sidebar from './Sidebar'
 import MainContent from './MainContent'
 import { useState } from 'react'
 import allMolecules from './molecule_database'
+import Header from './Header'
 
 const Maker = ({socket}) => {
   //The basic molecule outline
@@ -54,12 +54,12 @@ const Maker = ({socket}) => {
   }
 
   return (
-    <section className="maker-container">
-        <img className='mmli-img'src={mmli} alt="mmli" />
-    <div className="main-container">
+    <section className="maker-container" style={{padding: 'none'}}>
+      <Header />
+    <div className="main-container" style={{width: '100%', display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
       <Sidebar images={images} handleImageSelect={handleImageSelect} selectedImages={selectedImages} />
       <MainContent selectedImages={selectedImages} />
-      <button style={{padding: "1rem"}} onClick={handleSubmit}>Submit</button>
+      <button style={{padding: "1rem"}} onClick={handleSubmit}>SUBMIT</button>
     </div>
     </section>
   );

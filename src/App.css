@@ -1,7 +1,7 @@
-/* :root {
-  background-color: whitesmoke;
-  color: black;
-} */
+:root {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
 body {
   background-image: url("/src/assets/INFO418_login_background.webp");
@@ -9,6 +9,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  margin: 0;
 }
 
 .clock_time {
@@ -36,9 +37,6 @@ body {
   width: 100px;
 }
 
-.maker-container {
-  padding: 2rem 8rem 8rem 3rem;
-}
 .mmli-img {
   width: 10rem;
 }
@@ -62,4 +60,65 @@ body {
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
+}
+
+ul {
+  margin: 0;
+}
+
+.login-box {
+  box-shadow: 0px 0px 3rem 5px #212121;
+}
+
+button {
+  background-color: #131737;
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid white;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition-duration: 250ms;
+}
+
+button:hover {
+  background-color: white;
+  color: #131737;
+  border: 2px solid #131737;
+  transition-duration: 250ms;
+}
+
+header {
+  background-color: #131737;
+}
+
+header h1 {
+  color: white;
+  font-variant: small-caps;
+  font-weight: 500;
+}
+
+input {
+  border-radius: .5rem;
+  padding: .5rem;
+  border: 1px solid black;
+}
+
+.main-content {
+  box-shadow: 0px 0px 3rem 5px #212121;
+}
+
+.molecule-display p {
+  color: #131737;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+}
+
+.sidebar {
+  overflow-y: scroll;
+}
+
+.sidebar h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-variant: small-caps;
 }

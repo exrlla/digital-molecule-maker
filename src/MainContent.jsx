@@ -9,14 +9,15 @@ const MainContent = ({ selectedImages }) => {
           backgroundColor: 'Gainsboro',
           borderRadius: '10px',
           marginInline: '5rem',
-          width: '80%',
+          width: '50%',
           height: '15rem',
           alignItems: 'center',
           justifyContent: 'center',
+          marginLeft: '10%',
       }}>
-        <MoleculeDisplay image={selectedImages[0]} width={200} height={150}></MoleculeDisplay>
-        <MoleculeDisplay image={selectedImages[1]} width={175} height={150}></MoleculeDisplay>
-        <MoleculeDisplay image={selectedImages[2]} width={175} height={150}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[0]} width={'15rem'} height={'10rem'}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[1]} width={'13rem'} height={'10rem'}></MoleculeDisplay>
+        <MoleculeDisplay image={selectedImages[2]} width={'13rem'} height={'10rem'}></MoleculeDisplay>
       </div>
     );
 };

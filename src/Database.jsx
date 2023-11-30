@@ -4,6 +4,7 @@ import allMolecules from "./molecule_database";
 import MoleculeDisplay from './MoleculeDisplay';
 import getSuggestedMolecule from './GetSuggestedMolecule';
 import Loading from './Loading';
+import Header from './Header';
 
 const Database = ({socket}) => {
     const [selectedImages, setSelectedImages] = useState([]);
@@ -59,7 +60,17 @@ const Database = ({socket}) => {
     // If there is no molecule selected or the molecule is invalid
     return (
         <>
-            <div style={{alignContent: "center", justifyContent: "center", alignSelf: "center", display: "flex", marginTop: "10%"}}>
+            <Header />
+            <div 
+                style={{
+                    display: 'flex', 
+                    flexDirection: "row", 
+                    margin: "0", backgroundColor: 
+                    'white', justifyContent: 'center', 
+                    height: '88vh', 
+                    alignItems: 'center'
+                }}
+            >
                 <h1>No molecule selected!</h1>
             </div>
         </>
@@ -98,16 +109,16 @@ const getMoleculeProperties = (selectedImages) => {
 const displaySuggestionPage = (selectedImages, suggested, data, options) => {
     return (
         <>
-            <div style={{display: 'flex', flexDirection: "row", margin: "3em", backgroundColor: 'white'}}>
+            <Header />
+            <div style={{display: 'flex', flexDirection: "row", margin: "0", backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                    <h2 style={{backgroundColor: 'white', padding: '1.5rem', color: 'black'}}>
+                    <h2 style={{padding: '1.5rem', color: 'black', fontVariant: 'small-caps'}}>
                         Your Selected Molecule:
                     </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
-                        backgroundColor: "white",  
                         alignItems: "center", 
                         justifyContent: "center",
                         padding: "2rem"}}>
@@ -126,14 +137,14 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                 </div>
                 {/* Display the suggested molecules if the best molecule has not been found yet. */}
                 <span>
-                    <h2>
+                    <h2 style={{fontVariant: 'small-caps'}}>
                         Suggested Molecules:
                     </h2>
                     {suggested.map((suggestedTrimer, i) => (
                         <div key={i}>
-                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "1rem", alignItems: "center"}}>
+                            <span style={{display: "flex", flexDirection: "row", padding: "1rem", alignItems: "center"}}>
                                 {suggestedTrimer.map((image, j) => (
-                                    <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                                    <MoleculeDisplay image={image} width={'15rem'} height={'12rem'}></MoleculeDisplay>
                                 ))}
                             </span>
                             <br />
@@ -152,16 +163,16 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
 const displayWinningPage = (selectedImages, data, options) => {
     return (
         <>
+            <Header />
             <div style={{display: 'flex', flexDirection: "row", margin: "3em", marginTop: '3em', backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem', fontVariant: 'small-caps'}}>
                         Your Selected Molecule:
                     </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
-                        backgroundColor: "white",  
                         alignItems: "center", 
                         justifyContent: "center",
                         padding: "2rem"}}>
@@ -180,7 +191,7 @@ const displayWinningPage = (selectedImages, data, options) => {
                 </div>
                 {/* If the best molecule has been found */}
                 <span style={{marginRight: "10%"}}>
-                    <h2>
+                    <h2 style={{fontVariant: 'small-caps'}}>
                         Suggested Molecules:
                     </h2>
                     <h1>Best molecule found! This molecule is ready to be synthesized using the physical molecule maker.</h1>
@@ -193,16 +204,16 @@ const displayWinningPage = (selectedImages, data, options) => {
 const displayInvalidPage = (selectedImages, data, options) => {
     return (
         <>
+            <Header />
             <div style={{display: 'flex', flexDirection: "row", margin: "3em", backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem', fontVariant: 'small-caps'}}>
                         Your Selected Molecule:
                     </h2>
                     <span style={{
                         flexDirection: "row", 
                         display: 'flex', 
-                        backgroundColor: "white",  
                         alignItems: "center", 
                         justifyContent: "center",
                         padding: "2rem"}}>
@@ -213,7 +224,7 @@ const displayInvalidPage = (selectedImages, data, options) => {
                 </div>
                 {/* If the best molecule has been found */}
                 <span style={{marginRight: "10%"}}>
-                    <h2>
+                    <h2 style={{fontVariant: 'small-caps'}}>
                         Suggested Molecules:
                     </h2>
                     <h1>No suggested molecules for the selected molecule found. Try again!</h1>

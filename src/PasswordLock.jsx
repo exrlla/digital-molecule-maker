@@ -1,6 +1,6 @@
 import './App.css'
+import Header from './Header';
 import avatar from "./assets/INFO418_login_avatar.png"
-import icons from "./assets/INFO418_login_icons.png"
 import { useEffect, useState } from 'react';
 
 function currentTime() {
@@ -53,17 +53,8 @@ const PasswordLock = () => {
   
   return (
     <section>
-      <div style={
-          {
-            
-            display: "flex",
-            justifyContent: "right",
-            paddingRight: "30px",
-
-          }
-        }>
-          <img src={icons} alt="Icons" width={60}/>
-        </div>
+      <Header></Header>
+      
       <div
       style={{
            // centers the content vertically and horizontally
@@ -75,35 +66,44 @@ const PasswordLock = () => {
       }}>
         
         <div style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-    
-     
-        }}> 
+          backgroundColor: 'gray', 
+          color: 'black', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          width: '20%',
+          paddingTop: '4rem', 
+          paddingBottom: '6rem',
+          paddingLeft: '2rem',
+          paddingRight: '2rem',
+          marginTop: '10%',
+          borderRadius: '2rem',
+          shadowOpacity: 0.8,
+          shadowRadius: 2,
+          }} 
+          className="login-box"> 
           <img src={avatar} alt="Avatar" width={120}/>
           <form name='submit box' onSubmit={handleSubmit} className='center'>
             <label>
               <input name='password box' type="text" value={password} onChange={handleChange} autoComplete='off'>
               </input>
-              <button type="submit">Submit</button>
+              <button type="submit" style={{marginLeft: '1rem', fontWeight: 'bold'}}>LOG IN</button>
             </label>
           </form>
         </div>
 
         {/* Below is the submit form. Handles the user inputting a password and submitting it. */}
-        
-        </div>
+      </div>
       <div style={{
         // position the clock in the bottom right corner
         position: "absolute",
-        bottom: "0",
-        left: "0",
-        paddingLeft: "30px"
-
-    
-      }}
-          className='clock_time' id='clock'></div>
+        bottom: "2rem",
+        left: "2rem",
+        paddingLeft: "30px",
+        fontSize: '3rem'
+        }}
+        className='clock_time' id='clock' />
     </section>
   )
 }
