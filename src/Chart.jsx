@@ -1,5 +1,4 @@
 import './App.css'
-import Tooltip from './Tooltip'
 
 const Chart = ({weight, light_absorption, lifespan, bandgap}) => {
     return (
