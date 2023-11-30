@@ -1,7 +1,6 @@
 import allMolecules from "./molecule_database";
 
 const GetSuggestedMolecule = ([filename1, filename2, filename3]) => {
-    console.log("getsuggested")
     // gets the actual molecule information from the molecule list
     const molecule1 = allMolecules[filename1];
     const molecule2 = allMolecules[filename2];

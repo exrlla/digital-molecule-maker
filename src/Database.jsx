@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Chart } from "react-google-charts";
 import allMolecules from "./molecule_database";
 import MoleculeDisplay from './MoleculeDisplay';
 import getSuggestedMolecule from './GetSuggestedMolecule';
 import Loading from './Loading';
 import Header from './Header';
+import Chart from './Chart';
 
 const Database = ({socket}) => {
     const [selectedImages, setSelectedImages] = useState([]);
@@ -86,23 +86,11 @@ const getMoleculeProperties = (selectedImages) => {
      const numMolecules = molecules.length;
 
      const weightSum = molecules.reduce((acc, currImage) => {return acc + currImage.weight}, 0);
-     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.reactivity}, 0);
-     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.activation_energy}, 0);
+     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.light_absorption}, 0);
+     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.lifespan}, 0);
      const bandGapSum = molecules.reduce((acc, currImage) => {return acc + currImage.bandgap}, 0);
-     
-     //calculates the data by computing the average stats of the 3 molecules
-     const data = [
-         [
-         "Property",
-         "Scale",
-         ],
-         ["Weight", weightSum / numMolecules],
-         ["Reactivity", lightAbsorptionSum / numMolecules],
-         ["Activation Energy", lifespanSum / numMolecules],
-         ["Band Gap", bandGapSum / numMolecules]
-     ];
 
-     return data;
+    return [weightSum/numMolecules, lightAbsorptionSum / numMolecules, lifespanSum / numMolecules, bandGapSum / numMolecules]
 }
 
 // Displays the page with the suggested molecules
@@ -123,16 +111,14 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                         justifyContent: "center",
                         padding: "2rem"}}>
                         {selectedImages.map((image, i) => (
-                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay key={i} image={image} width={200} height={150}></MoleculeDisplay>
                         ))}
                     </span>
-                    <Chart
-                            chartType="BarChart"
-                            width="100%"
-                            height="500px"
-                            data={data}
-                            options={options}
-                            style={{marginTop: 3 + 'em'}}
+                    <Chart 
+                        weight={data[0]}
+                        light_absorption={data[1]}
+                        lifespan={data[2]}
+                        bandgap={data[3]}
                     />
                 </div>
                 {/* Display the suggested molecules if the best molecule has not been found yet. */}
@@ -144,7 +130,7 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                         <div key={i}>
                             <span style={{display: "flex", flexDirection: "row", padding: "1rem", alignItems: "center"}}>
                                 {suggestedTrimer.map((image, j) => (
-                                    <MoleculeDisplay image={image} width={'15rem'} height={'12rem'}></MoleculeDisplay>
+                                    <MoleculeDisplay key={j} image={image} width={'15rem'} height={'12rem'}></MoleculeDisplay>
                                 ))}
                             </span>
                             <br />
@@ -177,16 +163,14 @@ const displayWinningPage = (selectedImages, data, options) => {
                         justifyContent: "center",
                         padding: "2rem"}}>
                         {selectedImages.map((image, i) => (
-                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay key={i} image={image} width={200} height={150}></MoleculeDisplay>
                         ))}
                     </span>
-                    <Chart
-                            chartType="BarChart"
-                            width="100%"
-                            height="500px"
-                            data={data}
-                            options={options}
-                            style={{marginTop: 3 + 'em'}}
+                    <Chart 
+                        weight={data[0]}
+                        light_absorption={data[1]}
+                        lifespan={data[2]}
+                        bandgap={data[3]}
                     />
                 </div>
                 {/* If the best molecule has been found */}
@@ -218,9 +202,15 @@ const displayInvalidPage = (selectedImages, data, options) => {
                         justifyContent: "center",
                         padding: "2rem"}}>
                         {selectedImages.map((image, i) => (
-                            <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
+                            <MoleculeDisplay key={i} image={image} width={200} height={150}></MoleculeDisplay>
                         ))}
                     </span>
+                    <Chart 
+                        weight={data[0]}
+                        light_absorption={data[1]}
+                        lifespan={data[2]}
+                        bandgap={data[3]}
+                    />
                 </div>
                 {/* If the best molecule has been found */}
                 <span style={{marginRight: "10%"}}>
