@@ -98,10 +98,10 @@ const getMoleculeProperties = (selectedImages) => {
 const displaySuggestionPage = (selectedImages, suggested, data, options) => {
     return (
         <>
-            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+            <div style={{display: 'flex', flexDirection: "row", margin: "3em", backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
-                    <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
+                    <h2 style={{backgroundColor: 'white', padding: '1.5rem', color: 'black'}}>
                         Your Selected Molecule:
                     </h2>
                     <span style={{
@@ -131,7 +131,7 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                     </h2>
                     {suggested.map((suggestedTrimer, i) => (
                         <div key={i}>
-                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "2rem", alignItems: "center"}}>
+                            <span style={{display: "flex", flexDirection: "row", backgroundColor: 'white', padding: "1rem", alignItems: "center"}}>
                                 {suggestedTrimer.map((image, j) => (
                                     <MoleculeDisplay image={image} width={200} height={150}></MoleculeDisplay>
                                 ))}
@@ -139,6 +139,9 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
                             <br />
                         </div>
                     ))}
+                    <h2 style={{color: 'black'}}>
+                        The molecule isn't optimized yet, keep submitting new molecules!
+                    </h2>
                 </span>
             </div>
         </>
@@ -149,7 +152,7 @@ const displaySuggestionPage = (selectedImages, suggested, data, options) => {
 const displayWinningPage = (selectedImages, data, options) => {
     return (
         <>
-            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+            <div style={{display: 'flex', flexDirection: "row", margin: "3em", marginTop: '3em', backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
                     <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
@@ -190,7 +193,7 @@ const displayWinningPage = (selectedImages, data, options) => {
 const displayInvalidPage = (selectedImages, data, options) => {
     return (
         <>
-            <div style={{display: 'flex', flexDirection: "row", marginLeft: "3em", marginTop: "3em"}}>
+            <div style={{display: 'flex', flexDirection: "row", margin: "3em", backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
                     <h2 style={{backgroundColor: 'white', padding: '1.5rem'}}>
