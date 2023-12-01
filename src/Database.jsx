@@ -150,7 +150,7 @@ const displayWinningPage = (selectedImages, data, options) => {
     return (
         <>
             <Header />
-            <div style={{display: 'flex', flexDirection: "row", margin: "3em", marginTop: '3em', backgroundColor: 'white'}}>
+            <div style={{display: 'flex', flexDirection: "row", margin: "0", backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
                     <h2 style={{padding: '1.5rem', fontVariant: 'small-caps'}}>
@@ -189,7 +189,7 @@ const displayInvalidPage = (selectedImages, data, options) => {
     return (
         <>
             <Header />
-            <div style={{display: 'flex', flexDirection: "row", margin: "3em", backgroundColor: 'white'}}>
+            <div style={{display: 'flex', flexDirection: "row", margin: "0", backgroundColor: 'white'}}>
                 {/* Display the submitted molecule and its stats */}
                 <div style={{flexDirection: "column", marginRight: "5rem"}}>
                     <h2 style={{padding: '1.5rem', fontVariant: 'small-caps'}}>
