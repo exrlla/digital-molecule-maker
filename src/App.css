@@ -183,3 +183,7 @@ input {
   color: white;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.sidebar .molecule-display {
+  cursor: pointer;
+}
