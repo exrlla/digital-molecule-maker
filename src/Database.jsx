@@ -217,7 +217,7 @@ const displayInvalidPage = (selectedImages, data, options) => {
                     <h2 style={{fontVariant: 'small-caps'}}>
                         Suggested Molecules:
                     </h2>
-                    <h1>No suggested molecules for the selected molecule found. Try again!</h1>
+                    <h1>No suggested molecules for the selected molecule found. Try a different combination!</h1>
                 </span>
             </div>
         </>
