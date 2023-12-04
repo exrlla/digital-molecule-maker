@@ -86,8 +86,8 @@ const getMoleculeProperties = (selectedImages) => {
      const numMolecules = molecules.length;
 
      const weightSum = molecules.reduce((acc, currImage) => {return acc + currImage.weight}, 0);
-     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.light_absorption}, 0);
-     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.lifespan}, 0);
+     const lightAbsorptionSum = molecules.reduce((acc, currImage) => {return acc + currImage.reactivity}, 0);
+     const lifespanSum = molecules.reduce((acc, currImage) => {return acc + currImage.activation_energy}, 0);
      const bandGapSum = molecules.reduce((acc, currImage) => {return acc + currImage.bandgap}, 0);
 
     return [weightSum/numMolecules, lightAbsorptionSum / numMolecules, lifespanSum / numMolecules, bandGapSum / numMolecules]
