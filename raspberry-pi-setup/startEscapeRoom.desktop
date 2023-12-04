@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=EscapeRoomScriptAct3
+Exec=/etc/startupAct3.sh
