@@ -5,7 +5,8 @@ First make sure that 2 monitors are plugged in to your raspberry pi
 ## Install all project dependencies
  ```npm -i``` to install all dependencies in the "digital-molecule-maker/"  directory and
 the "/window-opener" directory.
-- Alternatively, run the "install.sh" script
+- Alternatively, run the "install.sh" script:
+Remember to: ```chmod +x install.sh```
 
 Next:
 Adjust the permissions for every .sh file
