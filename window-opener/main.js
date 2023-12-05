@@ -1,12 +1,25 @@
-// Oppens the windows on two separate browsers and on different screends connected through HDMI
+const { app, BrowserWindow, screen } = require('electron');
 
-const { app, BrowserWindow } = require('electron');
+function createWindow(url, screenIndex) {
+  const displays = screen.getAllDisplays();
 
-let mainWindow;
-let databaseWindow;
+   // Check if screen module is available
+   if (displays.length === 0) {
+    console.error('No displays found. Make sure the screen module is available.');
+    return;
+  }
 
-function createWindow(url, width, height) {
-  const window = new BrowserWindow({ width, height });
+  const currScreen = displays[screenIndex];
+
+  const { width, height } = currScreen.workAreaSize;
+
+  const window = new BrowserWindow({
+    fullscreen: true,
+    x: currScreen.bounds.x,
+    y: currScreen.bounds.y,
+    width,
+    height,
+  });
 
   window.loadURL(url);
 
@@ -14,15 +27,13 @@ function createWindow(url, width, height) {
 }
 
 app.whenReady().then(() => {
-  mainWindow = createWindow('http://localhost:5173/', 800, 600);
-  databaseWindow = createWindow('http://localhost:5173/database', 800, 600);
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      mainWindow = createWindow('http://localhost:5173/', 800, 600);
-      databaseWindow = createWindow('http://localhost:5173/database', 800, 600);
-    }
-  });
+    // We cannot require the screen module until the app is ready.
+  const { screen } = require('electron');
+
+  mainWindow = createWindow('http://localhost:5173/', 0);
+  databaseWindow = createWindow('http://localhost:5173/database', 1);
+
 });
 
 app.on('window-all-closed', () => {

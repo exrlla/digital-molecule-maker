@@ -8,6 +8,10 @@ the "/window-opener" directory.
 - Alternatively, run the "install.sh" script
 
 Next:
+Adjust the permissions for every .sh file
+```chmod +x startupAct3.sh```
+```chmod +x startEscapeRoom.desktop```
+
 ```cp startupAct3.sh /etc/```
 
 (For this next command, if the "autostart/" directory doesn't exist, create it)
